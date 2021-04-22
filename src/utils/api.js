@@ -1,7 +1,6 @@
 import axios from 'axios';
-import env from "react-dotenv";
 
-const accessApiKey = env.API_KEY;
+const accessApiKey = process.env.REACT_APP_API_KEY;
 const cloudWalletBaseUrl  = `https://cloud-wallet-api.prod.affinity-project.org/api/v1`;
 const issuerBaseUrl = `https://affinity-issuer.prod.affinity-project.org/api/v1`;
 const verifierBaseUrl = `https://affinity-verifier.prod.affinity-project.org/api/v1`;

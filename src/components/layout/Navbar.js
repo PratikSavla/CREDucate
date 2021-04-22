@@ -15,9 +15,6 @@ const Navbar = () => {
         <Link to="/">Home</Link>
         {appState.isAuthenticated && (
           <>
-            <Link to={routes.ISSUER}>Issue</Link>
-            <Link to={routes.VERIFIER}>Verify</Link>
-            <Link to={routes.HOLDER}>Holder</Link>
             < UserLogout></UserLogout>
           </>
         )}

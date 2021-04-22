@@ -3,7 +3,7 @@ import LOCAL_STORAGE_KEY from "../constants/localstorage";
 import { cloudWalletApi, issuerApi, verifierApi } from "./api";
 import axios from 'axios';
 
-const MONGODB_URL = "http://localhost:5000"
+const MONGODB_URL = process.env.REACT_APP_SERVER_URL
 
 export default class ApiService {
   
@@ -90,6 +90,12 @@ export default class ApiService {
     return response.data;
   }
 
+  // Share stored VC
+  static async shareStoredVC(VCId, ttl='0') {
+    const response = await cloudWalletApi.post(`${endpoints.WALLET_CREDENTIALS}/${VCId}/share`, {"ttl":ttl})
+
+    return response.data;
+  }
   // Method for retrieving saved VCs.
   static async getSavedVCs() {
     const {data} = await cloudWalletApi.get(endpoints.WALLET_CREDENTIALS)
@@ -259,25 +265,46 @@ export default class ApiService {
     return relation.data;
   }
 
-  // get all students of a institution
-  static async getStudentRelations(institutionID, params={}) {
+  // get verified students of a institution
+  static async getVerifiedStudentRelations(institutionID, params={}) {
     
-    const { data } = await axios.get(`${MONGODB_URL}/relations/institution/${institutionID}`, {params:params});
+    const { data } = await axios.get(`${MONGODB_URL}/relations/verified-institutions/${institutionID}`, {params:params});
     let students = []
     for(let i=0;i<data.length; i++){
-      const temp = await this.getStudentById(data[i].studentID);
+      const temp = await this.getInstitutionById(data[i].institutionID);
       students.push({...temp,...data[i]});
     }
     return students;
-    return data;
   }
-  // get all institutions of a student
-  static async getInstitutionRelations(studentID, params={}) {
+  // get verified institutions of a student
+  static async getVerifiedInstitutionRelations(studentID, params={}) {
     
-    const { data } = await axios.get(`${MONGODB_URL}/relations/student/${studentID}`, {params:params});
+    const { data } = await axios.get(`${MONGODB_URL}/relations/verified-students/${studentID}`, {params:params});
     let institutions = []
     for(let i=0;i<data.length; i++){
+      const temp = await this.getStudentById(data[i].studentID);
+      institutions.push({...temp,...data[i]});
+    }
+    return institutions;
+  }
+  // get unverified students of a institution
+  static async getUnverifiedStudentRelations(institutionID, params={}) {
+    
+    const { data } = await axios.get(`${MONGODB_URL}/relations/unverified-institutions/${institutionID}`, {params:params});
+    let students = []
+    for(let i=0;i<data.length; i++){
       const temp = await this.getInstitutionById(data[i].institutionID);
+      students.push({...temp,...data[i]});
+    }
+    return students;
+  }
+  // get unverified institutions of a student
+  static async getUnverifiedInstitutionRelations(studentID, params={}) {
+    
+    const { data } = await axios.get(`${MONGODB_URL}/relations/unverified-students/${studentID}`, {params:params});
+    let institutions = []
+    for(let i=0;i<data.length; i++){
+      const temp = await this.getStudentById(data[i].studentID);
       institutions.push({...temp,...data[i]});
     }
     return institutions;
@@ -306,5 +333,24 @@ export default class ApiService {
   static async getStudentById(id) {
     const { data } = await axios.get(`${MONGODB_URL}/students/id/${id}`);
     return data
+  }
+
+  // get relation by id
+  static async getRelationById(id) {
+    const { data } = await axios.get(`${MONGODB_URL}/relations/byid/${id}`);
+    return data
+  }
+
+  // get data for vc from relation id
+  static async getDataForVC(relationID) {
+    const relation = await this.getRelationById(relationID);
+    const student = await this.getStudentById(relation.studentID);
+    return {
+      name:student.name, 
+      did:student.did.split(';')[0],
+      id:student._id, 
+      address:student.address, 
+      contact:student.contact
+    };
   }
 }

@@ -52,7 +52,7 @@ const StudentSignin = () => {
 
   return (
     <div className="home">
-      <h1>Signin</h1>
+      <h1>Student Signin</h1>
       <form onSubmit={onSubmit}>
         <label><b>Username</b></label>
         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />

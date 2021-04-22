@@ -71,7 +71,7 @@ const StudentSignup = () => {
 
   return (
     <div className="home">
-      <h1>Signup</h1>
+      <h1>Student Signup</h1>
       <form onSubmit={onSubmit}>
         <label><b>Username</b></label>
         <input type="text" value={data.username} onChange={e => {setData({...data, username:e.target.value})}} />

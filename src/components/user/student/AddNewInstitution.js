@@ -11,7 +11,7 @@ export default function AddNewInstitution() {
     ApiService.getAllInstitutions()
       .then(data => setInstitutions(data))
       .catch(err => console.log(err));
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ export default function AddNewInstitution() {
   }
   return (
     <div>
-      <h1>Add New Institution</h1>
+      <h2>Add New Institution</h2>
       <form onSubmit={handelSubmit}>
         <select name="Institutions" onChange={(e) => setSelected(e.target.value)} value={selected}>
           { institutions.map(institution => (

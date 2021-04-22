@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function CreateVC() {
+export default function Verification() {
   return (
     <div>
-      New VC
+      Verification
     </div>
   )
 }

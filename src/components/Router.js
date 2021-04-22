@@ -1,6 +1,3 @@
-import Verify from '../pages/Verify';
-import Issue from '../pages/Issue';
-import Holder from '../pages/Holder';
 import Home from '../pages/Home';
 import InstitutionSignin from '../pages/user/institution/Signin';
 import InstitutionSignup from '../pages/user/institution/Signup';
@@ -12,6 +9,8 @@ import StudentSignup from '../pages/user/student/Signup';
 import StudentSignin from '../pages/user/student/Signin';
 import StudentHome from '../pages/user/student/StudentHome';
 import InstitutionHome from '../pages/user/institution/InstitutionHome';
+import StudentVerification from '../pages/StudentVerification';
+import IssueCredential from '../pages/IssueCredential';
 /**
  * Stateless component responsible for rendering public or private routes.
  * If user is authenticated, render private routes, otherwise render public routes.
@@ -33,14 +32,20 @@ const Router = ({isUserAuthenticated, isInstitution}) => {
     )
   }
 
-  const PrivateHome = isInstitution?InstitutionHome:StudentHome;
-  // render private routes
+  if(isInstitution) {
+    return (
+      <Switch>
+        <Route exact path={routes.ROOT} component={InstitutionHome} />
+        <Route path="/verify/:id" component={StudentVerification} />
+        <Route path="/issue-credential/:id" component={IssueCredential} />
+        <Route component={NotFound}/>
+      </Switch>
+    )
+  }
+
   return (
     <Switch>
-      <Route exact path={routes.ROOT} component={PrivateHome} />
-      <Route exact path={routes.ISSUER} component={Issue} />
-      <Route exact path={routes.VERIFIER} component={Verify} />
-      <Route exact path={routes.HOLDER} component={Holder} />
+      <Route exact path={routes.ROOT} component={StudentHome} />
       <Route component={NotFound}/>
     </Switch>
   )
