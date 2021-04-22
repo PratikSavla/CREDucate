@@ -1,25 +1,91 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useContext} from 'react';
+import ApiService from './utils/apiService';
+import Navbar from './components/layout/Navbar';
+import { apiInstances } from './utils/api';
+import jwt_decode from 'jwt-decode';
+import Router from './components/Router';
+import { AppContext,defaultAppState } from './utils/context';
+
 
 function App() {
+
+  const [appState, setAppState] = useContext(AppContext)
+
+  useEffect(() => {
+    const accessToken = ApiService.getAccessTokenFromLocalStorage();
+    const didToken = ApiService.getDidTokenToLocalStorage();
+    const user = ApiService.getUserToLocalStorage();
+
+    if( accessToken ) {
+      const jwtToken = jwt_decode(accessToken);
+      /**
+       * On component mount, check if user access token is valid.
+       * If not, log out user on client side.
+       * */
+      if( (jwtToken.exp * 1000) <= new Date().getTime() ) {
+
+        ApiService.removeAccessAndDidTokens()
+
+        alert('Your JWT token has expired. Please, log in again.')
+
+        setAppState(prevState => {
+          return {
+            ...prevState,
+            isAuthenticated: false,
+          }
+        })
+
+        return;
+      }
+      else {
+        /**
+         * Log in user on client side, set authorization bearer token.
+         * */
+        const userState = jwt_decode(user);
+        ApiService.setAuthorizationBearer(accessToken);
+        setAppState(prevState => {
+          return {
+            ...prevState,
+            didToken: didToken || null,
+            accessToken,
+            isAuthenticated: true,
+            username: jwt_decode(accessToken).username,
+            ...userState
+          }
+        })
+      }
+    }
+
+    apiInstances.forEach(instance => {
+      /**
+       * In case of 401 HTTP responses, remove tokens from localstorage
+       * and reset app context state (basically, log out user on client side).
+       * */
+      instance.interceptors.response.use(function (response) {
+        return response;
+      }, function (error) {
+        if (401 === error.response.status) {
+          ApiService.removeAccessAndDidTokens()
+
+          setAppState({
+            ...appState,
+            ...defaultAppState
+          })
+
+          alert('Your JWT token has expired. Please, log in again.')
+        } else {
+          return Promise.reject(error);
+        }
+      });
+    })
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Navbar isUserAuthenticated={appState.isAuthenticated}/>
+      <Router isUserAuthenticated={appState.isAuthenticated} isInstitution={appState.isInstitution}/>
+    </>
+  )
 }
 
 export default App;
