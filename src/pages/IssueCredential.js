@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import {useHistory,useParams} from 'react-router-dom';
 import ApiService from '../utils/apiService';
 import { AppContext } from '../utils/context';
+import { MessageService } from '../utils/messageService';
+import SdkService from '../utils/sdkService';
 import { generateVC } from '../utils/vc-template';
 
 export default function IssueCredential() {
@@ -43,9 +45,12 @@ export default function IssueCredential() {
     const generatedVC = generateVC(formData)
     const {unsignedVC} = await ApiService.issueUnsignedVC(generatedVC);
     const {signedCredential} = await ApiService.signVC({'unsignedCredential':unsignedVC});
-    const {credentialIds} = await ApiService.storeSignedVCs({'data':[signedCredential]});
-    const {sharingUrl} = await ApiService.shareStoredVC(credentialIds[0]);
-    const relation = await ApiService.addURLToRelation(id, sharingUrl);
+    const {credentialIds} = await ApiService.storeSignedVCs(signedCredential);
+    const sdkService = await SdkService.fromAccessToken(appState.accessToken)
+    const messageService = new MessageService(sdkService);
+    const response = await messageService.send(student.did, signedCredential);
+    console.log(response);
+    const relation = await ApiService.addURLToRelation(id, credentialIds[0]);
     console.log(relation);
     history.push('/')
   }

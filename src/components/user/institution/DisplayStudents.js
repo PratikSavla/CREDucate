@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import ApiService from '../../../utils/apiService';
 import {AppContext} from "../../../utils/context";
 import {useHistory} from 'react-router-dom';
+import axios from 'axios';
 
 export default function DisplayStudents() {
   const [appState] = useContext(AppContext);
@@ -9,12 +10,14 @@ export default function DisplayStudents() {
   const [unverifiedStudents, setUnerifiedStudents] = useState([]);
   const history = useHistory();
   useEffect(() => {
-    ApiService.getVerifiedInstitutionRelations(appState._id)
+    const signal = axios.CancelToken.source();
+    ApiService.getVerifiedInstitutionRelations(appState._id,signal)
       .then(data => setVerifiedStudents(data))
       .catch(err => console.log(err));
-    ApiService.getUnverifiedInstitutionRelations(appState._id)
+    ApiService.getUnverifiedInstitutionRelations(appState._id,signal)
       .then(data => setUnerifiedStudents(data))
       .catch(err => console.log(err));
+    return () => signal.cancel("axios request cancelled");
   }, [appState])
 
   return (

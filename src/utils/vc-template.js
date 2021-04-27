@@ -8,7 +8,7 @@ export const generateVC = ({
   expiresAt,
   url}) => {
   const vc = {
-    "type": "GenderCredentialPersonV1",
+    "type": "EducationCredentialPersonV1",
     "data": {
       "@type": [
         "Person",

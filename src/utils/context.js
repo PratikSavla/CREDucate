@@ -11,6 +11,7 @@ export const defaultAppState = {
     isAuthenticated: false,
     username: null,
     isInstitution: false,
+    isVerifier:false,
     name: null,
     contact: null,
     address: null,

@@ -11,22 +11,24 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1>Educate</h1>
-      <div className="links">
-        <Link to="/">Home</Link>
+      <ul className="links">
+        <li><Link to="/">Home</Link></li>
         {appState.isAuthenticated && (
           <>
-            < UserLogout></UserLogout>
+            <li>< UserLogout></UserLogout></li>
           </>
         )}
         {!appState.isAuthenticated && (
           <>
-            <Link to={routes.STUDENT_LOGIN}>Student SignIn</Link>
-            <Link to={routes.STUDENT_SIGNUP}>Student SignUp</Link>
-            <Link to={routes.INSTITUTION_LOGIN}>Institution SignIn</Link>
-            <Link to={routes.INSTITUTION_SIGNUP}>Institution SignUp</Link>
+            <li><Link to={routes.STUDENT_LOGIN}>Student LogIn</Link></li>
+            <li><Link to={routes.STUDENT_SIGNUP}>Student SignUp</Link></li>
+            <li><Link to={routes.INSTITUTION_LOGIN}>Institution LogIn</Link></li>
+            <li><Link to={routes.INSTITUTION_SIGNUP}>Institution SignUp</Link></li>
+            <li><Link to={routes.VERIFIER_LOGIN}>Verifier LogIn</Link></li>
+            <li><Link to={routes.VERIFIER_SIGNUP}>Verifier SignUp</Link></li>
           </>
         )}
-      </div>
+      </ul>
     </nav>
   );
 }

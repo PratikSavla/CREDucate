@@ -6,5 +6,6 @@ export const endpoints = {
   VC_BUILD_UNSIGNED: '/vc/build-unsigned',
   WALLET_SIGN_CREDENTIALS: '/wallet/sign-credential',
   DID_RESOLVE_DID: '/did/resolve-did',
-  VERIFIER_VERIFY_VCS: '/verifier/verify-vcs'
+  VERIFIER_VERIFY_VCS: '/verifier/verify-vcs',
+  MESSAGE:'/messages'
 }

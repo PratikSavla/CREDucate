@@ -9,7 +9,7 @@ import { AppContext } from "../../../utils/context";
 
 import sign from 'jwt-encode';
 
-const StudentSignup = () => {
+const VerifierSignup = () => {
 
   const [data, setData] = useState({
     username:'',password:'',confirmPassword:'',
@@ -33,7 +33,7 @@ const StudentSignup = () => {
 
     try {
       // perform user registration
-      const tokenData = await ApiService.signUpStudent(data)
+      const tokenData = await ApiService.signUpVerifier(data)
       // check if user used arbitrary username, instead of a phone number or email address
       const isUsername = !data.username.startsWith('+') && data.username.indexOf('@') === -1
 
@@ -41,7 +41,7 @@ const StudentSignup = () => {
       if (isUsername) {
         const {accessToken, did, name, contact, address, VCIssued, _id} = tokenData;
 
-        const user = sign({name, contact, address, VCIssued, _id, isInstitution:false,isVerifier:false}, 'educate');
+        const user = sign({name, contact, address, VCIssued, _id, isInstitution:false, isVerifier:true}, 'educate');
         ApiService.clientSideLogIn(accessToken, did, user);
 
         setAppState({
@@ -51,6 +51,7 @@ const StudentSignup = () => {
           accessToken,
           didToken: did,
           username: data.username,
+          isVerifier:true,
           name, contact, address, VCIssued, _id,
         })
 
@@ -71,7 +72,7 @@ const StudentSignup = () => {
 
   return (
     <div className="home">
-      <h1>Student Signup</h1>
+      <h1>Verifier Signup</h1>
       <form onSubmit={onSubmit}>
         <label><b>Username</b></label>
         <input type="text" value={data.username} onChange={e => {setData({...data, username:e.target.value})}} />
@@ -97,4 +98,4 @@ const StudentSignup = () => {
   );
 }
  
-export default StudentSignup;
+export default VerifierSignup;

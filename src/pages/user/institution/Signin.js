@@ -23,7 +23,7 @@ const InstitutionSignin = () => {
     try {
       const {accessToken, did, name, contact, address, VCIssued, _id} = await ApiService.logInInstitution(username, password)
   
-      const user = sign({name, contact, address, VCIssued, _id, isInstitution:true}, 'educate');
+      const user = sign({name, contact, address, VCIssued, _id, isInstitution:true,isVerifier:false}, 'educate');
 
       ApiService.clientSideLogIn(accessToken, did, user);
 

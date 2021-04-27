@@ -64,7 +64,7 @@ function App() {
       instance.interceptors.response.use(function (response) {
         return response;
       }, function (error) {
-        if (401 === error.response.status) {
+        if (error.response && 401 === error.response.status) {
           ApiService.removeAccessAndDidTokens()
 
           setAppState({
@@ -73,6 +73,7 @@ function App() {
           })
 
           alert('Your JWT token has expired. Please, log in again.')
+          return Promise.reject(error);
         } else {
           return Promise.reject(error);
         }
@@ -83,7 +84,7 @@ function App() {
   return (
     <>
       <Navbar isUserAuthenticated={appState.isAuthenticated}/>
-      <Router isUserAuthenticated={appState.isAuthenticated} isInstitution={appState.isInstitution}/>
+      <Router isUserAuthenticated={appState.isAuthenticated} isInstitution={appState.isInstitution} isVerifier={appState.isVerifier}/>
     </>
   )
 }

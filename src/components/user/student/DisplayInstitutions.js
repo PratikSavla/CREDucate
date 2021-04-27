@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import {AppContext} from "../../../utils/context";
 import ApiService from '../../../utils/apiService';
+import axios from 'axios';
 
 export default function DisplayInstitutions() {
   const [verifiedInstitutions, setVerifiedInstitutions] = useState([]);
@@ -10,12 +11,14 @@ export default function DisplayInstitutions() {
   const [appState] = useContext(AppContext);
 
   useEffect(() => {
-    ApiService.getVerifiedStudentRelations(appState._id)
+    const signal = axios.CancelToken.source();
+    ApiService.getVerifiedStudentRelations(appState._id, signal)
       .then(data => setVerifiedInstitutions(data))
       .catch(err => console.log(err));
-    ApiService.getUnverifiedStudentRelations(appState._id)
+    ApiService.getUnverifiedStudentRelations(appState._id, signal)
       .then(data => setUnverifiedInstitutions(data))
       .catch(err => console.log(err));
+    return () => signal.cancel("axios request cancelled");
   }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
   return (

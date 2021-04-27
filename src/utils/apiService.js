@@ -1,7 +1,9 @@
 import { endpoints } from "../constants/endpoints";
 import LOCAL_STORAGE_KEY from "../constants/localstorage";
-import { cloudWalletApi, issuerApi, verifierApi } from "./api";
+import { cloudWalletApi, issuerApi, verifierApi, messagerApi } from "./api";
 import axios from 'axios';
+import SdkService from "./sdkService";
+import { MessageService } from "./messageService";
 
 const MONGODB_URL = process.env.REACT_APP_SERVER_URL
 
@@ -24,6 +26,25 @@ export default class ApiService {
 
     const mongoInstitution = await axios.get(`${MONGODB_URL}/institutions/did/${a.data.did}`)
     return {...a.data, ...mongoInstitution.data};
+  }
+
+   // method for creating a new user account
+   static async signUpVerifier(verifier) {
+    const { username, password } = verifier;
+    const { data } =  await cloudWalletApi.post(endpoints.SIGNUP, { username, password });
+
+    const mongoVerifier = await axios.post(`${MONGODB_URL}/verifiers`, {...verifier, did: data.did, username})
+
+    return { ...data, ...mongoVerifier.data};
+  }
+
+  // Method for logging in existing user into the network.
+  static async logInVerifier(username, password) {
+    const loginParams = { username, password }
+    const a =  await cloudWalletApi.post(endpoints.LOGIN, loginParams)
+
+    const mongoVerifier = await axios.get(`${MONGODB_URL}/verifiers/did/${a.data.did}`)
+    return {...a.data, ...mongoVerifier.data};
   }
 
   // method for creating a new user account
@@ -84,8 +105,8 @@ export default class ApiService {
   } 
 
   // Method for storing signed VCs.
-  static async storeSignedVCs(data) {
-    const response = await cloudWalletApi.post(endpoints.WALLET_CREDENTIALS, data)
+  static async storeSignedVCs(verifiedCredential) {
+    const response = await cloudWalletApi.post(endpoints.WALLET_CREDENTIALS, {"data":[verifiedCredential]})
 
     return response.data;
   }
@@ -94,11 +115,11 @@ export default class ApiService {
   static async shareStoredVC(VCId, ttl='0') {
     const response = await cloudWalletApi.post(`${endpoints.WALLET_CREDENTIALS}/${VCId}/share`, {"ttl":ttl})
 
-    return response.data;
+    return response;
   }
   // Method for retrieving saved VCs.
-  static async getSavedVCs() {
-    const {data} = await cloudWalletApi.get(endpoints.WALLET_CREDENTIALS)
+  static async getSavedVCs(signal) {
+    const {data} = await cloudWalletApi.get(endpoints.WALLET_CREDENTIALS, {cancelToken: signal.token,})
 
     return data;
   }
@@ -128,6 +149,7 @@ export default class ApiService {
 
   static setAuthorizationBearer = (accessToken) => {
     cloudWalletApi.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    messagerApi.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   }
 
   /**
@@ -266,9 +288,9 @@ export default class ApiService {
   }
 
   // get verified students of a institution
-  static async getVerifiedStudentRelations(institutionID, params={}) {
+  static async getVerifiedStudentRelations(institutionID,signal, params={}) {
     
-    const { data } = await axios.get(`${MONGODB_URL}/relations/verified-institutions/${institutionID}`, {params:params});
+    const { data } = await axios.get(`${MONGODB_URL}/relations/verified-institutions/${institutionID}`, {cancelToken: signal.token,params:params});
     let students = []
     for(let i=0;i<data.length; i++){
       const temp = await this.getInstitutionById(data[i].institutionID);
@@ -277,9 +299,9 @@ export default class ApiService {
     return students;
   }
   // get verified institutions of a student
-  static async getVerifiedInstitutionRelations(studentID, params={}) {
+  static async getVerifiedInstitutionRelations(studentID, signal, params={}) {
     
-    const { data } = await axios.get(`${MONGODB_URL}/relations/verified-students/${studentID}`, {params:params});
+    const { data } = await axios.get(`${MONGODB_URL}/relations/verified-students/${studentID}`, {cancelToken: signal.token, params:params});
     let institutions = []
     for(let i=0;i<data.length; i++){
       const temp = await this.getStudentById(data[i].studentID);
@@ -288,9 +310,9 @@ export default class ApiService {
     return institutions;
   }
   // get unverified students of a institution
-  static async getUnverifiedStudentRelations(institutionID, params={}) {
+  static async getUnverifiedStudentRelations(institutionID,signal, params={}) {
     
-    const { data } = await axios.get(`${MONGODB_URL}/relations/unverified-institutions/${institutionID}`, {params:params});
+    const { data } = await axios.get(`${MONGODB_URL}/relations/unverified-institutions/${institutionID}`, {cancelToken: signal.token,params:params});
     let students = []
     for(let i=0;i<data.length; i++){
       const temp = await this.getInstitutionById(data[i].institutionID);
@@ -299,9 +321,9 @@ export default class ApiService {
     return students;
   }
   // get unverified institutions of a student
-  static async getUnverifiedInstitutionRelations(studentID, params={}) {
+  static async getUnverifiedInstitutionRelations(studentID, signal, params={}) {
     
-    const { data } = await axios.get(`${MONGODB_URL}/relations/unverified-students/${studentID}`, {params:params});
+    const { data } = await axios.get(`${MONGODB_URL}/relations/unverified-students/${studentID}`, {cancelToken: signal.token, params:params});
     let institutions = []
     for(let i=0;i<data.length; i++){
       const temp = await this.getStudentById(data[i].studentID);
@@ -319,8 +341,8 @@ export default class ApiService {
   }
 
   // get all institutions
-  static async getAllInstitutions() {
-    const { data } = await axios.get(`${MONGODB_URL}/institutions`);
+  static async getAllInstitutions(signal) {
+    const { data } = await axios.get(`${MONGODB_URL}/institutions`,{cancelToken: signal.token,});
     return data
   }
 
@@ -347,10 +369,24 @@ export default class ApiService {
     const student = await this.getStudentById(relation.studentID);
     return {
       name:student.name, 
-      did:student.did.split(';')[0],
+      did:student.did,
       id:student._id, 
       address:student.address, 
       contact:student.contact
     };
+  }
+  // get institutions for dropdown tab
+  static async getInstitutionsForSelection(studentID,signal) {
+    const allInstitutions = await this.getAllInstitutions(signal);
+    const {data:relationInstitutions} = await axios.get(`${MONGODB_URL}/relations/institution/${studentID}`, {'signal':signal})
+    const usedInstitutionIds = relationInstitutions.map(value => (value.institutionID));
+    return allInstitutions.filter(institution => !usedInstitutionIds.includes(institution._id))
+  }
+  // get messages using all the apis
+  static async getMessages(accessToken) {
+    const sdkService = await SdkService.fromAccessToken(accessToken)
+    const messageService = new MessageService(sdkService);
+    const response = await messageService.getAll();
+    return response;
   }
 }

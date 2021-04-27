@@ -10,7 +10,6 @@ export default function InstitutionHome() {
       <h2>{appState.name} - {appState._id}</h2>
       <p><strong>Address:</strong> {appState.address}</p>
       <p><strong>Contact:</strong> {appState.contact}</p>
-      <h3><strong>VCs Issued:</strong> {appState.VCIssued}</h3>
       < DisplayStudents />
     </div>
   )

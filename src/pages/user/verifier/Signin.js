@@ -10,24 +10,19 @@ import sign from 'jwt-encode';
 
 // import useFetch from "../utils/useFetch";
 
-const StudentSignin = (props) => {
+const VerifierSignin = () => {
 
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ appState, setAppState ] = useContext(AppContext);
   const history = useHistory();
-  // const [ requestToken, setRequestToken ] = useState('');
 
-  // if(props.location.search.length>0){
-  //   const {search} = props.location;
-  //   if(search.slice(0,7)==="?share=") setRequestToken(search.split("="))
-  // }
-    const onSubmit = async (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const {accessToken, did, name, contact, address, VCIssued, _id} = await ApiService.logInStudent(username, password)
-      const user = sign({name, contact, address, VCIssued, _id, isInstitution:false,isVerifier:false}, 'educate');
+      const {accessToken, did, name, contact, address, VCIssued, _id} = await ApiService.logInVerifier(username, password)
+      const user = sign({name, contact, address, VCIssued, _id, isInstitution:false,isVerifier:true}, 'educate');
 
       ApiService.clientSideLogIn(accessToken, did, user);
 
@@ -38,10 +33,11 @@ const StudentSignin = (props) => {
         accessToken,
         didToken: did,
         username,
+        isVerifier:true,
         name, contact, address, VCIssued, _id, 
       })
 
-      history.push(`${routes.STUDENT}${props.location.search}`);
+      history.push(routes.ROOT);
 
     } catch (error) {
       ApiService.alertWithBrowserConsole(error.message)
@@ -57,7 +53,7 @@ const StudentSignin = (props) => {
 
   return (
     <div className="home">
-      <h1>Student Signin</h1>
+      <h1>Verifier Signin</h1>
       <form onSubmit={onSubmit}>
         <label><b>Username</b></label>
         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
@@ -71,4 +67,4 @@ const StudentSignin = (props) => {
   );
 }
  
-export default StudentSignin;
+export default VerifierSignin;

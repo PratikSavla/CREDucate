@@ -40,7 +40,7 @@ const InstitutionSignup = () => {
       if (isUsername) {
         const {accessToken, did, name, contact, address, VCIssued, _id} = tokenData;
 
-        const user = sign({name, contact, address, VCIssued, _id, isInstitution:true}, 'educate');
+        const user = sign({name, contact, address, VCIssued, _id, isInstitution:true,isVerifier:false}, 'educate');
 
         ApiService.clientSideLogIn(accessToken, did, user);
 
