@@ -38,7 +38,6 @@ export default function DisplayInstitutions() {
             <tr>
               <th>Institution Name</th>
               <th>VC</th>
-              <th>Share</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +46,6 @@ export default function DisplayInstitutions() {
               <tr key={institution.institutionID}>
                 <td>{institution.name}</td>
                 <td>{institution.vc_url===''?'No VC Assigned Yet':institution.vc_url}</td>
-                <td><button  className="btn waves-effect waves-light indigo" >Share</button></td>
               </tr>
             ))}
           </tbody>

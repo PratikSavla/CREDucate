@@ -42,7 +42,7 @@ export default function DisplayCredentials({requestToken}) {
             <th>Education Level</th>
             <th>Certificate</th>
             <th>Date Created</th>
-            { requestToken && <th>Action</th>}
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -53,7 +53,11 @@ export default function DisplayCredentials({requestToken}) {
               <td>{credential.credentialSubject.data.hasCredential.educationalLevel}</td>
               <td>{credential.credentialSubject.data.hasCredential.url}</td>
               <td>{credential.credentialSubject.data.hasCredential.dateCreated}</td>
-              { requestToken && <td><button onClick={() => handleShare(credential)}>Share</button></td>}
+              <td>
+                { requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShare(credential)}>Share</button>}
+                { !requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShare(credential)}>Share</button>}
+                { !requestToken && <button className="btn waves-effect waves-light red">Delete</button>}
+              </td>
             </tr>
           ))}
         </tbody>
