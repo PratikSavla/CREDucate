@@ -5,9 +5,11 @@ import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 export default function DisplayStudents() {
+
   const [appState] = useContext(AppContext);
   const [verifiedStudents, setVerifiedStudents] = useState([]);
   const [unverifiedStudents, setUnerifiedStudents] = useState([]);
+
   const history = useHistory();
   useEffect(() => {
     const signal = axios.CancelToken.source();
@@ -22,42 +24,36 @@ export default function DisplayStudents() {
 
   return (
     <div>
-      <h1>Unverified Students</h1>
-      <table>
-        <tbody>
-        <tr>
-          <th>Student Name</th>
-          <th>Verification</th>
-        </tr>
+      <ul className="collection with-header">
+        <li className="collection-header"><h4>Unverified Students</h4></li>
         {
           unverifiedStudents.map(student => (
-            <tr key={student._id}>
-              <td>{student.name}</td>
-              <td>{student.isVerified?"Verified":<button onClick={() => history.push(`verify/${student._id}`)}>Verify</button>}</td>
-            </tr>
+            <li className="collection-item" key={student._id}>
+              <div className="" style={{height:"40px"}}>
+              {student.name}
+              <button className="secondary-content btn waves-effect waves-light indigo" onClick={() => history.push(`verify/${student._id}`)}>Verify</button>
+              </div>
+            </li>
           ))
         }
-        </tbody>
-      </table>
+      </ul>
 
       <div>
-        <h1>Verified Students</h1>
-        <table>
-          <tbody>
-          <tr>
-            <th>Student Name</th>
-            <th>VC URL</th>
-          </tr>
+        <ul className="collection with-header"> 
+        <li className="collection-header"><h4>Verified Students</h4></li>        
           {
             verifiedStudents.map(student => (
-              <tr key={student._id}>
-                <td>{student.name}</td>
-                <td>{student.vc_url===''? <button onClick={() => history.push(`issue-credential/${student._id}`)}>Create VC</button>:student.vc_url}</td>
-              </tr>
+              <li className="collection-item" key={student._id}>
+                <div style={{height:"40px"}}>
+                  {student.name}
+                  {student.vc_url===''? <button className="secondary-content btn waves-effect waves-light indigo" 
+                      onClick={() => history.push(`issue-credential/${student._id}`)}>Create Crededntial</button>
+                    :<button className="secondary-content btn waves-effect waves-light indigo">Share Credential</button>}
+                </div>
+              </li>
             ))
           }
-          </tbody>
-        </table>
+        </ul>
       </div>
     </div>
   )

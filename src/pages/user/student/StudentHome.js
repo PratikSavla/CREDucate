@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import AddNewInstitution from '../../../components/user/student/AddNewInstitution'
-import DisplayInstitutions from '../../../components/user/student/DisplayInstitutions'
 import { AppContext } from '../../../utils/context'
-import DisplayMessages from '../../../components/user/student/DisplayMessages';
 import DisplayCredentials from '../../../components/user/student/DisplayCredentials';
 
 export default function StudentHome(props) {
@@ -16,15 +13,11 @@ export default function StudentHome(props) {
     // }
   }, [])// eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <div>
-      <h1>Student Home</h1>
-      <h2>{appState.name} - {appState._id}</h2>
+    <div className="container">
+      <h2>{appState.name}</h2>
       <p><strong>Address:</strong> {appState.address}</p>
       <p><strong>Contact:</strong> {appState.contact}</p>
-      { !requestToken && < DisplayMessages />}
       < DisplayCredentials requestToken={requestToken} />
-      { !requestToken && < AddNewInstitution />}
-      { !requestToken && < DisplayInstitutions/>}
     </div>
   )
 }

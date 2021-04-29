@@ -34,9 +34,9 @@ export default function DisplayCredentials({requestToken}) {
   return (
     <div>
       <h2>All Credentials</h2>
-      <table>
-        <tbody>
-          <tr>
+      <table className="highlight responsive-table centered">
+        <thead>
+        <tr>
             <th>Institution Name</th>
             <th>Category</th>
             <th>Education Level</th>
@@ -44,14 +44,16 @@ export default function DisplayCredentials({requestToken}) {
             <th>Date Created</th>
             { requestToken && <th>Action</th>}
           </tr>
+        </thead>
+        <tbody>
           { credentials.map(credential => (
             <tr key={credential.id}>
-              <th>{credential.credentialSubject.data.hasCredential.recognizedBy.name}</th>
-              <th>{credential.credentialSubject.data.hasCredential.credentialCategory}</th>
-              <th>{credential.credentialSubject.data.hasCredential.educationalLevel}</th>
-              <th>{credential.credentialSubject.data.hasCredential.url}</th>
-              <th>{credential.credentialSubject.data.hasCredential.dateCreated}</th>
-              { requestToken && <th><button onClick={() => handleShare(credential)}>Share</button></th>}
+              <td>{credential.credentialSubject.data.hasCredential.recognizedBy.name}</td>
+              <td>{credential.credentialSubject.data.hasCredential.credentialCategory}</td>
+              <td>{credential.credentialSubject.data.hasCredential.educationalLevel}</td>
+              <td>{credential.credentialSubject.data.hasCredential.url}</td>
+              <td>{credential.credentialSubject.data.hasCredential.dateCreated}</td>
+              { requestToken && <td><button onClick={() => handleShare(credential)}>Share</button></td>}
             </tr>
           ))}
         </tbody>

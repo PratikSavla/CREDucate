@@ -82,10 +82,10 @@ function App() {
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
+    <div className="container">
       <Navbar isUserAuthenticated={appState.isAuthenticated}/>
       <Router isUserAuthenticated={appState.isAuthenticated} isInstitution={appState.isInstitution} isVerifier={appState.isVerifier}/>
-    </>
+    </div>
   )
 }
 

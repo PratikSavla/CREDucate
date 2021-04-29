@@ -3,7 +3,7 @@
 import { useState, useContext } from "react";
 import ApiService from '../../../utils/apiService';
 import {AppContext} from '../../../utils/context';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {routes} from '../../../constants/routes';
 
 import sign from 'jwt-encode';
@@ -56,16 +56,23 @@ const StudentSignin = (props) => {
   }
 
   return (
-    <div className="home">
-      <h1>Student Signin</h1>
+    <div className="center">
+      <h2>Student Signin</h2>
       <form onSubmit={onSubmit}>
-        <label><b>Username</b></label>
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-
-        <label><b>Password</b></label>
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-
-        <button type="submit" disabled={!validateForm()}>Login</button>
+        <div className="row">
+          <div className="input-field col s12 l4 offset-l4">
+          <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+          <label>Username</label>
+          </div>
+          <div className="input-field col s12 l4 offset-l4">
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <label>Password</label>
+          </div>
+        </div>
+        <div className="col s12 l4 offset-l4">
+        <button className="btn waves-effect waves-light indigo" type="submit" disabled={!validateForm()}>Login</button>
+        <p>Don't have a student account? <Link to={routes.STUDENT_SIGNUP} className="indigo-text">Click here</Link></p>
+        </div>
       </form>
     </div>
   );

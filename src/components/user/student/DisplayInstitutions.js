@@ -24,34 +24,30 @@ export default function DisplayInstitutions() {
   return (
     <div>
       <div>
-        <h2>Not verified by Institutions</h2>
-        <table>
-          <tbody>
-            <tr>
-              <th>Institution Name</th>
-              <th>Verification</th>
-            </tr>
+        <ul className="collection with-header">
+          <li className="collection-header">Applied to institutions:</li>
             {unverifiedInstitutions.map(institution => (
-              <tr key={institution.institutionID}>
-                <th>{institution.name}</th>
-                <th>Pending</th>
-              </tr>
+              <li className="collection-item" key={institution.institutionID}>{institution.name}</li>
             ))}
-          </tbody>
-        </table>
+        </ul>
       </div>
       <div>
         <h2>Verified by Institutions</h2>
-        <table>
-          <tbody>
+        <table className="highlight responsive-table centered">
+          <thead>
             <tr>
               <th>Institution Name</th>
               <th>VC</th>
+              <th>Share</th>
             </tr>
+          </thead>
+          <tbody>
+            
             {verifiedInstitutions.map(institution => (
               <tr key={institution.institutionID}>
-                <th>{institution.name}</th>
-                <th>{institution.vc_url===''?'No VC Assigned Yet':institution.vc_url}</th>
+                <td>{institution.name}</td>
+                <td>{institution.vc_url===''?'No VC Assigned Yet':institution.vc_url}</td>
+                <td><button  className="btn waves-effect waves-light indigo" >Share</button></td>
               </tr>
             ))}
           </tbody>

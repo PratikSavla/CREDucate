@@ -35,9 +35,8 @@ export default function Verify() {
       })
   }, [appState.accessToken])// eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <div>
-      <h1>Verification Page</h1>
-      <h2>{credential.credentialid} - {credential.isValid?'Is Valid':'Not Valid'}</h2>
+    <div className="container">
+      <h4>{credential.credentialid} - {credential.isValid?'Is Valid':'Not Valid'}</h4>
       <p>Holder Name: {credential.holderName}</p>
       <p>{credential.credentialCategory} - {credential.educationLevel}</p>
       <p>Issuance Date: {credential.issuanceDate}</p>

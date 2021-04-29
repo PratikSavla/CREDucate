@@ -5,7 +5,7 @@ import SdkService from '../../../utils/sdkService';
 import { useHistory } from "react-router";
 import ApiService from '../../../utils/apiService';
 
-export default function DisplayResponses() {
+export default function DisplayResponses({setNotificationNumber}) {
   const [appState] = useContext(AppContext);
   const [messageList, setMessageList] = useState([]);
   const history = useHistory();
@@ -13,10 +13,11 @@ export default function DisplayResponses() {
   useEffect(() => {
     let isActive = true;
     ApiService.getMessages(appState.accessToken)
-      .then(response => {if(isActive)setMessageList(response)});
+      .then(response => {if(isActive)setMessageList(response); setNotificationNumber(response.length)});
     window.setInterval(async () => {
       const response = await ApiService.getMessages(appState.accessToken);
-      if(isActive)setMessageList(response)
+      if(isActive)setMessageList(response);
+      setNotificationNumber(response.length);
     }, 10000)
     return () => {isActive=false;};
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
@@ -32,22 +33,25 @@ export default function DisplayResponses() {
   return (
     <div>
       <h2>Display Responses</h2>
-      <table>
-        <tbody>
-          <tr>
+      <table className="highlight responsive-table centered">
+        <thead>
+        <tr>
             <th>From Did</th>
             <th>Date </th>
             <th>Action</th>
           </tr>
+        </thead>
+        <tbody>
+          
           { messageList.map((data) => {
             return (
             <tr key={data.id}>
-              <th>{data.fromDid}</th>
-              <th>{data.createdAt}</th>
-              <th>
-                <button onClick={() => history.push(`verify/${data.message}`)}>Verify</button>
-                <button onClick={() => handleDeleteResponse(data.id)}>Delete Response</button>
-              </th>
+              <td>{data.fromDid}</td>
+              <td>{data.createdAt}</td>
+              <td>
+                <button className="btn waves-effect waves-light indigo modal-close" onClick={() => history.push(`verify/${data.message}`)}>Verify</button>
+                <button className="btn waves-effect waves-light red" onClick={() => handleDeleteResponse(data.id)}>Delete Response</button>
+              </td>
             </tr>
           )})}
         </tbody>

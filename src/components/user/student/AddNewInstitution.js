@@ -5,7 +5,7 @@ import {AppContext} from "../../../utils/context";
 
 export default function AddNewInstitution() {
   const [institutions, setInstitutions] = useState([]);
-  const [selected, setSelected] = useState('None');
+  const [selected, setSelected] = useState("None");
   const [appState] = useContext(AppContext);
 
   useEffect(() => {
@@ -30,14 +30,19 @@ export default function AddNewInstitution() {
   return (
     <div>
       <h2>Add New Institution</h2>
-      <form onSubmit={handelSubmit}>
-        <select name="Institutions" onChange={(e) => setSelected(e.target.value)} value={selected}>
-          <option value="None">None</option>
-          { institutions.map(institution => (
-            <option key={institution._id} value={institution._id}>{institution.name}</option>
-          ))}
-        </select>
-        <button type="submit">Submit</button>
+      <form onSubmit={handelSubmit } className="row valign-wrapper">
+        <div className="input-field col s12 l6">
+
+          <select className="browser-default" onChange={(e) => setSelected(e.target.value)} value={selected}>
+            <option value="None">None</option>
+            { institutions.map(institution => (
+              <option key={institution._id} value={institution._id}>{institution.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="col s12 l6">
+        <button className="btn waves-effect waves-light indigo" type="submit">Submit</button>
+        </div>
       </form>
     </div>
   )

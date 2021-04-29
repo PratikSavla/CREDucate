@@ -7,6 +7,7 @@ import ApiService from "../../../utils/apiService";
 import { AppContext } from "../../../utils/context";
 // import useFetch from "../utils/useFetch";
 import sign from 'jwt-encode';
+import { Link } from "react-router-dom";
 
 const InstitutionSignup = () => {
 
@@ -70,28 +71,38 @@ const InstitutionSignup = () => {
   }
 
   return (
-    <div className="home">
-      <h1>Institution Signup</h1>
-      <form onSubmit={onSubmit}>
-        <label><b>Username</b></label>
+    <div className="center">
+      <h2>Institution Signup</h2>
+      <form onSubmit={onSubmit} className="row">
+      <div className="input-field col s12 l4 offset-l4">
+        <label>Username</label>
         <input type="text" value={data.username} onChange={e => {setData({...data, username:e.target.value})}} />
-        <br/>
-        <label><b>Name</b></label>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <label>Name</label>
         <input type="text" value={data.name} onChange={e => {setData({...data, name:e.target.value})}} />
-        <br/>
-        <label><b>Address</b></label>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <label>Address</label>
         <input type="text" value={data.address} onChange={e => {setData({...data, address:e.target.value})}} />
-        <br/>
-        <label><b>Contact</b></label>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <label>Contact</label>
         <input type="text" value={data.contact} onChange={e => {setData({...data, contact:e.target.value})}} />
-        <br/>
-        <label><b>Password</b></label>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <label>Password</label>
         <input type="password" value={data.password} onChange={e => {setData({...data, password:e.target.value})}} />
-        <br/>
-        <label><b>Confirm Password</b></label>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <label>Confirm Password</label>
         <input type="password" value={data.confirmPassword} onChange={e => {setData({...data, confirmPassword:e.target.value})}} />
-        <br/>
-        <button type="submit" disabled={!validateForm()}>SignUp</button>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <button className="btn waves-effect waves-light indigo" type="submit" disabled={!validateForm()}>SignUp</button>
+        <p>Already have an institution account? <Link to={routes.INSTITUTION_LOGIN} className="indigo-text">Click here</Link></p>
+
+        </div>
       </form>
     </div>
   );

@@ -56,35 +56,46 @@ export default function IssueCredential() {
   }
 
   return (
-    <div>
-      <h1>Create New VC</h1>
+    <div className="container">
+      <h2>Create New VC</h2>
       {
         student && <>
-          <h2>Name: {student.name}</h2>
-          <p><strong>Student ID:</strong> {student._id}</p>
+          <h4>Name: {student.name}</h4>
+          <p><strong>Student ID:</strong> {student.id}</p>
           <p><strong>Contact:</strong> {student.contact}</p>
           <p><strong>Address:</strong> {student.address}</p>
-          <form onSubmit={createVC}>
-            <label><b>Credential Category</b></label>
+          <form onSubmit={createVC} className="row">
+            
+        <div className="input-field col s12">
             <input type="text" value={formData.credentialCategory} 
-              onChange={e => setFormData({...formData, credentialCategory:e.target.value})} 
-            /><br/>
-            <label><b>Educational Level</b></label>
+              onChange={e => setFormData({...formData, credentialCategory:e.target.value})}/>
+            <label>Credential Category</label>
+
+            </div>
+            <div className="input-field col s12">
             <input type="text" value={formData.educationalLevel} 
-              onChange={e => setFormData({...formData, educationalLevel:e.target.value})} 
-            /><br/>
-            <label><b>Expiry Date</b></label>
-            <input type="date" value={formData.expiresAt} 
-              onChange={e => setFormData({...formData, expiresAt:e.target.value})} 
-            /><br/>
-            <label><b>Certificate URL</b></label>
+              onChange={e => setFormData({...formData, educationalLevel:e.target.value})}/>
+            <label>Educational Level</label>
+
+            </div>            
+        <div className="input-field col s12">
             <input type="text" value={formData.url} 
-              onChange={e => setFormData({...formData, url:e.target.value})} 
-            /><br/>
-            <button type="submit">Create VC</button>
+              onChange={e => setFormData({...formData, url:e.target.value})}/>
+            <label>Certificate URL</label>
+
+            </div>
+        <div className="input-field col s12">
+            <input type="date" value={formData.expiresAt} 
+              onChange={e => setFormData({...formData, expiresAt:e.target.value})}/>
+              
+            </div>
+        <div className="">
+            <button className="btn waves-effect waves-light indigo" type="submit">Create VC</button>
+            </div>
           </form>
         </>
       }
+      
     </div>
   )
 }

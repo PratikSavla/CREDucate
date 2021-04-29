@@ -3,7 +3,7 @@
 import { useState, useContext } from "react";
 import ApiService from '../../../utils/apiService';
 import {AppContext} from '../../../utils/context';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {routes} from '../../../constants/routes';
 
 import sign from 'jwt-encode';
@@ -52,16 +52,21 @@ const VerifierSignin = () => {
   }
 
   return (
-    <div className="home">
-      <h1>Verifier Signin</h1>
-      <form onSubmit={onSubmit}>
-        <label><b>Username</b></label>
+    <div className="center">
+      <h2>Verifier Signin</h2>
+      <form onSubmit={onSubmit} className="row">
+        <div className="input-field col s12 l4 offset-l4">
+        <label>Username</label>
         <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-
-        <label><b>Password</b></label>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <label>Password</label>
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-
-        <button type="submit" disabled={!validateForm()}>Login</button>
+        </div>
+        <div className="col s12 l4 offset-l4">
+        <button className="btn waves-effect waves-light indigo" type="submit" disabled={!validateForm()}>Login</button>
+        <p>Don't have a verifier account? <Link to={routes.VERIFIER_SIGNUP} className="indigo-text">Click here</Link></p>
+        </div>
       </form>
     </div>
   );

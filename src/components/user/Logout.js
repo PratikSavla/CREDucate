@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import { useHistory } from 'react-router';
 import ApiService from '../../utils/apiService';
 import {AppContext,defaultAppState} from '../../utils/context';
 
@@ -7,7 +8,7 @@ import {AppContext,defaultAppState} from '../../utils/context';
  * */
 const UserLogout = () => {
   const [appState, setAppState] = useContext(AppContext)
-
+  const history = useHistory();
   /**
    * Function for logging out user and updating app state to
    * reflect that action.
@@ -26,6 +27,7 @@ const UserLogout = () => {
     } catch (error) {
       ApiService.alertWithBrowserConsole(error.message)
     }
+    history.push('/')
   }
 
   return (

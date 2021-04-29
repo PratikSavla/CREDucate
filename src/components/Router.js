@@ -15,6 +15,7 @@ import VerifierSignup from '../pages/user/verifier/Signup';
 import VerifierSignin from '../pages/user/verifier/Signin';
 import VerifierHome from '../pages/user/verifier/VerifierHome';
 import Verify from '../pages/Verify';
+import Institutes from './user/student/Institutes';
 /**
  * Stateless component responsible for rendering public or private routes.
  * If user is authenticated, render private routes, otherwise render public routes.
@@ -62,6 +63,7 @@ const Router = ({isUserAuthenticated, isInstitution, isVerifier}) => {
   return (
     <Switch>
       <Route exact path={[routes.ROOT, routes.STUDENT]} component={StudentHome} />
+      <Route exact path={routes.INSTITUTE} component={Institutes}/>
       <Route component={NotFound}/>
     </Switch>
   )

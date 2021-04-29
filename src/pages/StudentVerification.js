@@ -10,6 +10,7 @@ export default function StudentVerification() {
   const history = useHistory();
   
   useEffect(() => {
+    if(id) {
     ApiService.getRelationById(id)
       .then(data => {
         setRelation(data);
@@ -20,23 +21,25 @@ export default function StudentVerification() {
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
+    }
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const verifyStudent = async () => {
     console.log(await ApiService.verifyStudent(relation._id));
-    history.push()
+    history.push("/")
   }
-
+  if(id===null) return history.push('/')
   return (
-    <div>
-      Student Verification
+    <div className="container">
+      <h2>Student Verification</h2>
       {
         student && <>
-          <h2>Name: {student.name}</h2>
-          <h2>ID: {student._id}</h2>
-          <h2>Contact: {student.contact}</h2>
-          <h2>Address: {student.address}</h2>
-          <button onClick={verifyStudent}>Verify Student</button>
+          <h4><strong>Name:</strong> {student.name}</h4>
+          <h4><strong>ID:</strong> {student._id}</h4>
+          <h4><strong>Contact:</strong> {student.contact}</h4>
+          <h4><strong>Address:</strong> {student.address}</h4>
+          <button className="btn waves-effect waves-light indigo" onClick={verifyStudent}>Verify Student</button>
+          <button className="btn waves-effect waves-light red">Remove Student</button>
         </>
       }
     </div>
