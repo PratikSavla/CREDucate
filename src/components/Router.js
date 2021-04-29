@@ -27,14 +27,14 @@ const Router = ({isUserAuthenticated, isInstitution, isVerifier}) => {
   if( !isUserAuthenticated ) {
     return (
       <Switch>
-        <Route exact path={routes.INTRO} component={Home} />
+        <Route exact path={routes.ROOT} component={Home} />
         <Route exact path={routes.STUDENT_SIGNUP} component={StudentSignup} />
         <Route exact path={[routes.STUDENT_LOGIN, routes.STUDENT]} component={StudentSignin} />
         <Route exact path={routes.INSTITUTION_SIGNUP} component={InstitutionSignup} />
         <Route exact path={[routes.INSTITUTION_LOGIN, routes.INSTITUTE]} component={InstitutionSignin} />      
         <Route exact path={routes.VERIFIER_SIGNUP} component={VerifierSignup} />
         <Route exact path={[routes.VERIFIER_LOGIN, routes.VERIFIER]} component={VerifierSignin} />
-        <Route component={Home} />
+        <Route component={NotFound} />
       </Switch>
     )
   }
