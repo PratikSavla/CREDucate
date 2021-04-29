@@ -113,9 +113,9 @@ export default class ApiService {
 
   // Share stored VC
   static async shareStoredVC(VCId, ttl='0') {
-    const response = await cloudWalletApi.post(`${endpoints.WALLET_CREDENTIALS}/${VCId}/share`, {"ttl":ttl})
+    const {data} = await cloudWalletApi.post(`${endpoints.WALLET_CREDENTIALS}/${VCId}/share`, {"ttl":ttl})
 
-    return response;
+    return data;
   }
   // Method for retrieving saved VCs.
   static async getSavedVCs(signal) {

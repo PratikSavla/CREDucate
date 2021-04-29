@@ -25,7 +25,7 @@ export default function DisplayInstitutions() {
     <div>
       <div>
         <ul className="collection with-header">
-          <li className="collection-header">Applied to institutions:</li>
+          <li className="collection-header"><h4>Applied to institutions</h4></li>
             {unverifiedInstitutions.map(institution => (
               <li className="collection-item" key={institution.institutionID}>{institution.name}</li>
             ))}
@@ -33,23 +33,15 @@ export default function DisplayInstitutions() {
       </div>
       <div>
         <h2>Verified by Institutions</h2>
-        <table className="highlight responsive-table centered">
-          <thead>
-            <tr>
-              <th>Institution Name</th>
-              <th>VC</th>
-            </tr>
-          </thead>
-          <tbody>
+        <ul className="collection with-header">
+          <li className="collection-header"><h4>Accepted by institutions</h4></li>
             
             {verifiedInstitutions.map(institution => (
-              <tr key={institution.institutionID}>
-                <td>{institution.name}</td>
-                <td>{institution.vc_url===''?'No VC Assigned Yet':institution.vc_url}</td>
-              </tr>
+              <li className="collection-item" key={institution.institutionID}>
+                {institution.name} has {institution.vc_url===''?'has not assigned VC yet':"assigned you a crededntial already"}
+              </li>
             ))}
-          </tbody>
-        </table>
+        </ul>
       </div>
     </div>
   )

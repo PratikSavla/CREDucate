@@ -21,7 +21,7 @@ export default function DisplayCredentials({requestToken}) {
     }, 10000);
     return () => {isActive=false;signal.cancel("axios request cancelled");};
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
-  const handleShare = async (credential) => {
+  const handleShareResponse = async (credential) => {
     console.log(credential);
     const sdkService = await SdkService.fromAccessToken(appState.accessToken);
     const {payload} = sdkService.parseToken(requestToken);
@@ -31,6 +31,12 @@ export default function DisplayCredentials({requestToken}) {
     // const end = await messageService.delete(id)
     console.log(id); 
   };
+
+  const handleShare = async (credentialID) => {
+    const {sharingUrl} = await ApiService.shareStoredVC(credentialID);
+    navigator.clipboard.writeText(sharingUrl);
+    window.alert("Credential Share URL Copid To Clipoard")
+  }
   return (
     <div>
       <h2>All Credentials</h2>
@@ -54,9 +60,8 @@ export default function DisplayCredentials({requestToken}) {
               <td>{credential.credentialSubject.data.hasCredential.url}</td>
               <td>{credential.credentialSubject.data.hasCredential.dateCreated}</td>
               <td>
-                { requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShare(credential)}>Share</button>}
-                { !requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShare(credential)}>Share</button>}
-                { !requestToken && <button className="btn waves-effect waves-light red">Delete</button>}
+                { requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShareResponse(credential)}>Share</button>}
+                { !requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShare(credential.id)}>Share</button>}
               </td>
             </tr>
           ))}
