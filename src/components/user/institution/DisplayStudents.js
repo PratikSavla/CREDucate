@@ -21,11 +21,11 @@ export default function DisplayStudents() {
       .catch(err => console.log(err));
     return () => signal.cancel("axios request cancelled");
   }, [appState])
-  const handleShare = async (credentialID) => {
-    const {sharingUrl} = await ApiService.shareStoredVC(credentialID);
-    navigator.clipboard.writeText(sharingUrl);
-    window.alert("Credential Share URL Copid To Clipoard")
-  }
+  // const handleShare = async (credentialID) => {
+  //   const {sharingUrl} = await ApiService.shareStoredVC(credentialID);
+  //   navigator.clipboard.writeText(sharingUrl);
+  //   window.alert("Credential Share URL Copid To Clipoard")
+  // }
   return (
     <div>
       <ul className="collection with-header">
@@ -50,10 +50,10 @@ export default function DisplayStudents() {
               <li className="collection-item" key={student._id}>
                 <div style={{height:"40px"}}>
                   {student.name}
-                  {student.vc_url===''? <button className="secondary-content btn waves-effect waves-light indigo" 
+                  <button className="secondary-content btn waves-effect waves-light indigo" 
                       onClick={() => history.push(`issue-credential/${student._id}`)}>Create Crededntial</button>
-                    :<button className="secondary-content btn waves-effect waves-light indigo" 
-                    onClick={() => handleShare(student.vc_url)}>Share Credential</button>}
+                  <button className="secondary-content btn waves-effect waves-light indigo"
+                    onClick={() => history.push(`student-detail/${student._id}`)}>View Profile</button>
                 </div>
               </li>
             ))

@@ -8,6 +8,8 @@ import SdkService from '../../../utils/sdkService';
 export default function DisplayCredentials({requestToken}) {
   const [appState] = useContext(AppContext);
   const [credentials, setCredentials] = useState([]);
+  const [disableButton, setDisableButton] = useState(false);
+
   // console.log(requestToken)
   useEffect(() => {
     let isActive = true;
@@ -22,14 +24,16 @@ export default function DisplayCredentials({requestToken}) {
     return () => {isActive=false;signal.cancel("axios request cancelled");};
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
   const handleShareResponse = async (credential) => {
+    setDisableButton(true)
     console.log(credential);
     const sdkService = await SdkService.fromAccessToken(appState.accessToken);
     const {payload} = sdkService.parseToken(requestToken);
     const responseToken = await sdkService.createCredentialShareResponseToken(requestToken, [credential]);
     const messageService = new MessageService(sdkService);
     const {id} = await messageService.send(payload.iss,responseToken);
-    // const end = await messageService.delete(id)
+    // const end = await messageService.delete(id) 
     console.log(id); 
+    setDisableButton(false)
   };
 
   const handleShare = async (credentialID) => {
@@ -60,7 +64,7 @@ export default function DisplayCredentials({requestToken}) {
               <td>{credential.credentialSubject.data.hasCredential.url}</td>
               <td>{credential.credentialSubject.data.hasCredential.dateCreated}</td>
               <td>
-                { requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShareResponse(credential)}>Share</button>}
+                { requestToken &&<button className="btn waves-effect waves-light indigo" disabled={disableButton} onClick={() => handleShareResponse(credential)}>Share</button>}
                 { !requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShare(credential.id)}>Share</button>}
               </td>
             </tr>

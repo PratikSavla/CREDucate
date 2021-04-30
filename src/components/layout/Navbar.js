@@ -15,7 +15,7 @@ const Navbar = () => {
     <div>
     <nav className="nav-wrapper indigo">
       <div className="container">
-        <a href="/" className="brand-logo">Educate</a>
+        <a href="/" className="brand-logo">CREDucate</a>
       <ul className="right">
         <li><Link to="/">Home</Link></li>
         {appState.isAuthenticated && (

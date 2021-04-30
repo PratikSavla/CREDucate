@@ -6,6 +6,7 @@ import { routes } from "../../../constants/routes";
 import ApiService from "../../../utils/apiService";
 import { AppContext } from "../../../utils/context";
 // import useFetch from "../utils/useFetch";
+import { Helmet } from 'react-helmet-async';
 
 import sign from 'jwt-encode';
 import { Link } from "react-router-dom";
@@ -72,6 +73,9 @@ const StudentSignup = () => {
 
   return (
     <div className="center">
+      <Helmet>
+        <title>Student - Signup</title>
+      </Helmet>
       <h1>Student Signup</h1>
       <form onSubmit={onSubmit} className="row">
         <div className="input-field col s12 l4 offset-l4">

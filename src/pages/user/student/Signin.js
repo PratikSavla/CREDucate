@@ -5,6 +5,7 @@ import ApiService from '../../../utils/apiService';
 import {AppContext} from '../../../utils/context';
 import {Link, useHistory} from 'react-router-dom';
 import {routes} from '../../../constants/routes';
+import { Helmet } from 'react-helmet-async';
 
 import sign from 'jwt-encode';
 
@@ -57,6 +58,9 @@ const StudentSignin = (props) => {
 
   return (
     <div className="center">
+      <Helmet>
+        <title>Student - Login</title>
+      </Helmet>
       <h2>Student Signin</h2>
       <form onSubmit={onSubmit}>
         <div className="row">

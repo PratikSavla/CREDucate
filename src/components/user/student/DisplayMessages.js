@@ -7,6 +7,8 @@ import SdkService from '../../../utils/sdkService';
 export default function DisplayMessages({setNotificationNumber}) {
   const [appState] = useContext(AppContext);
   const [messageList, setMessageList] = useState([]);
+  const [disableButton, setDisableButton] = useState(false);
+
   useEffect(() => {
     let isActive = true;
     ApiService.getMessages(appState.accessToken)
@@ -23,13 +25,15 @@ export default function DisplayMessages({setNotificationNumber}) {
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSaveVC = async (messageID, verifiedCredential) => {
-    console.log(verifiedCredential);
+    setDisableButton(true)
     const credential = await ApiService.storeSignedVCs(verifiedCredential);
     console.log(credential);
     const sdkService = await SdkService.fromAccessToken(appState.accessToken);
     const messageService = await new MessageService(sdkService);
     const resp = await messageService.delete(messageID);
+    setMessageList(messageList.filter(message => message.id!==messageID))
     console.log(resp)
+    setDisableButton(false)
   }
   if(messageList.length===0) return (
     <h2>No Messages</h2>
@@ -59,7 +63,7 @@ export default function DisplayMessages({setNotificationNumber}) {
               <td>{message.credentialSubject.data.hasCredential.educationalLevel}</td>
               <td>{message.credentialSubject.data.hasCredential.url}</td>
               <td>{message.credentialSubject.data.hasCredential.dateCreated}</td>
-              <td><button className="btn waves-effect waves-light indigo" onClick={() => {handleSaveVC(data.id, message)}}>Save</button></td>
+              <td><button className="btn waves-effect waves-light indigo" disabled={disableButton} onClick={() => {handleSaveVC(data.id, message)}}>Save</button></td>
             </tr>
           )})}
         </tbody>

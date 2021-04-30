@@ -20,6 +20,8 @@ export default function IssueCredential() {
   const [appState] = useContext(AppContext);
   const { id } = useParams();
   const history = useHistory();
+  const [disableButton, setDisableButton] = useState(false);
+
   
   useEffect(() => {
     ApiService.getDataForVC(id)
@@ -42,6 +44,7 @@ export default function IssueCredential() {
 
   const createVC = async (e) => {
     e.preventDefault();
+    setDisableButton(true);
     const generatedVC = generateVC(formData)
     const {unsignedVC} = await ApiService.issueUnsignedVC(generatedVC);
     const {signedCredential} = await ApiService.signVC({'unsignedCredential':unsignedVC});
@@ -52,6 +55,7 @@ export default function IssueCredential() {
     console.log(response);
     const relation = await ApiService.addURLToRelation(id, credentialIds[0]);
     console.log(relation);
+    setDisableButton(false);
     history.push('/')
   }
 
@@ -90,7 +94,7 @@ export default function IssueCredential() {
               
             </div>
         <div className="">
-            <button className="btn waves-effect waves-light indigo" type="submit">Create VC</button>
+            <button className="btn waves-effect waves-light indigo" disabled={disableButton} type="submit">Create VC</button>
             </div>
           </form>
         </>

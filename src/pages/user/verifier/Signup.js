@@ -9,6 +9,7 @@ import { AppContext } from "../../../utils/context";
 
 import sign from 'jwt-encode';
 import { Link } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 const VerifierSignup = () => {
 
@@ -73,6 +74,9 @@ const VerifierSignup = () => {
 
   return (
     <div className="center">
+      <Helmet>
+        <title>Verifier - Signup</title>
+      </Helmet>
       <h2>Verifier Signup</h2>
       <form onSubmit={onSubmit} className="row">
       <div className="input-field col s12 l4 offset-l4">

@@ -9,6 +9,7 @@ export default function DisplayResponses({setNotificationNumber}) {
   const [appState] = useContext(AppContext);
   const [messageList, setMessageList] = useState([]);
   const history = useHistory();
+  const [disableButton, setDisableButton] = useState(false);
 
   useEffect(() => {
     let isActive = true;
@@ -23,12 +24,14 @@ export default function DisplayResponses({setNotificationNumber}) {
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDeleteResponse = async (id) => {
+    setDisableButton(true)
     const sdkService = await SdkService.fromAccessToken(appState.accessToken);
     const messageService = new MessageService(sdkService);
     const res = await messageService.delete(id);
+    console.log(res)
     const response = await ApiService.getMessages(appState.accessToken);
     setMessageList(response);
-    console.log(res);
+    setDisableButton(false)
   }
   return (
     <div>
@@ -50,7 +53,7 @@ export default function DisplayResponses({setNotificationNumber}) {
               <td>{data.createdAt}</td>
               <td>
                 <button className="btn waves-effect waves-light indigo modal-close" onClick={() => history.push(`verify/${data.message}`)}>Verify</button>
-                <button className="btn waves-effect waves-light red" onClick={() => handleDeleteResponse(data.id)}>Delete Response</button>
+                <button className="btn waves-effect waves-light red" disabled={disableButton} onClick={() => handleDeleteResponse(data.id)}>Delete Response</button>
               </td>
             </tr>
           )})}

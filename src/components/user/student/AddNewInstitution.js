@@ -2,11 +2,14 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import ApiService from '../../../utils/apiService';
 import {AppContext} from "../../../utils/context";
+import {useHistory} from 'react-router-dom';
 
 export default function AddNewInstitution() {
   const [institutions, setInstitutions] = useState([]);
   const [selected, setSelected] = useState("None");
   const [appState] = useContext(AppContext);
+  const [disableButton, setDisableButton] = useState(false);
+  const history = useHistory()
 
   useEffect(() => {
     const signal = axios.CancelToken.source();
@@ -16,16 +19,18 @@ export default function AddNewInstitution() {
     return () => signal.cancel("axios request cancelled");
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
-  //{cancelToken: signal.token,}
   const handelSubmit = async (e) => {
+    setDisableButton(true)
     e.preventDefault();
     if(selected === "None") {
       window.alert('Must select a institute');
       return
     }
     const data = await ApiService.addStudentToInstitution({institutionID:selected, studentID:appState._id})
-
-    console.log("relation added", data);
+    console.log(data)
+    setDisableButton(false);
+    // window.alert("Institution Added");
+    history.push('/');
   }
   return (
     <div>
@@ -41,7 +46,7 @@ export default function AddNewInstitution() {
           </select>
         </div>
         <div className="col s12 l6">
-        <button className="btn waves-effect waves-light indigo" type="submit">Submit</button>
+        <button className="btn waves-effect waves-light indigo" disabled={disableButton} type="submit">Submit</button>
         </div>
       </form>
     </div>

@@ -123,6 +123,21 @@ export default class ApiService {
 
     return data;
   }
+  // Method for retrieving saved VC from id.
+  static async getSavedVCFromID(id) {
+    const {data} = await cloudWalletApi.get(`${endpoints.WALLET_CREDENTIALS}/${id}`)
+
+    return data;
+  }
+  // get all vcs in a array 
+  static async getClaims(ids) {
+    var claims = [];
+    for (const id of ids) {
+      const claim = await this.getSavedVCFromID(id);
+      claims.push(claim);
+    }
+    return claims;
+  }
 
   // Method for deleting VC
   static async deleteStoredVC(VCId) {
@@ -388,5 +403,11 @@ export default class ApiService {
     const messageService = new MessageService(sdkService);
     const response = await messageService.getAll();
     return response;
+  }
+
+  // delete claim from relation table
+  static async deleteClaimFromRelation(id, remainingClaims) {
+    const {data} = await axios.put(`${MONGODB_URL}/relations/deleteClaim/${id}`, {'credentials':remainingClaims});
+    return data;
   }
 }

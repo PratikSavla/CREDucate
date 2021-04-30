@@ -1,4 +1,4 @@
-// import useFetch from "../utils/useFetch";
+import { Helmet } from 'react-helmet-async';
 
 import { useState, useContext } from "react";
 import ApiService from '../../../utils/apiService';
@@ -8,7 +8,6 @@ import {routes} from '../../../constants/routes';
 
 import sign from 'jwt-encode';
 
-// import useFetch from "../utils/useFetch";
 
 const InstitutionSignin = () => {
 
@@ -53,7 +52,10 @@ const InstitutionSignin = () => {
 
   return (
     <div className="center">
-      <h2>Institution Signin</h2>
+      <Helmet>
+        <title>Institution - Login</title>
+      </Helmet>
+      <h2>Institution Login</h2>
       <form onSubmit={onSubmit} className="row">
       <div className="input-field col s12 l4 offset-l4">
         <label>Username</label>

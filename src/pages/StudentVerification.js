@@ -8,6 +8,7 @@ export default function StudentVerification() {
   const [student, setStudent] = useState(null);
   const { id } = useParams();
   const history = useHistory();
+  const [disableButton, setDisableButton] = useState(false);
   
   useEffect(() => {
     if(id) {
@@ -25,7 +26,9 @@ export default function StudentVerification() {
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const verifyStudent = async () => {
+    setDisableButton(true)
     console.log(await ApiService.verifyStudent(relation._id));
+    setDisableButton(false)
     history.push("/")
   }
   if(id===null) return history.push('/')
@@ -38,7 +41,7 @@ export default function StudentVerification() {
           <h4><strong>ID:</strong> {student._id}</h4>
           <h4><strong>Contact:</strong> {student.contact}</h4>
           <h4><strong>Address:</strong> {student.address}</h4>
-          <button className="btn waves-effect waves-light indigo" onClick={verifyStudent}>Verify Student</button>
+          <button className="btn waves-effect waves-light indigo"disabled={disableButton} onClick={verifyStudent}>Verify Student</button>
           <button className="btn waves-effect waves-light red">Remove Student</button>
         </>
       }

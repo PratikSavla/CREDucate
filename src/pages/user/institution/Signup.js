@@ -1,4 +1,5 @@
 // import useFetch from "../utils/useFetch";
+import { Helmet } from 'react-helmet-async';
 
 import { useState, useContext } from "react";
 import { useHistory } from "react-router";
@@ -72,6 +73,9 @@ const InstitutionSignup = () => {
 
   return (
     <div className="center">
+      <Helmet>
+        <title>Institution - Signup</title>
+      </Helmet>
       <h2>Institution Signup</h2>
       <form onSubmit={onSubmit} className="row">
       <div className="input-field col s12 l4 offset-l4">
