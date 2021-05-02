@@ -269,10 +269,8 @@ export default class ApiService {
   /**
    * Method for showing the user a generic message when a request fails or an error has been thrown.
    * */
-   static alertWithBrowserConsole(consoleMessage = null, alertMessage="alertMessage") {
-    if( consoleMessage ) {
-      console.log(consoleMessage);
-    }
+   static alertWithBrowserConsole(alertMessage) {
+    console.log(alertMessage)
 
     alert(alertMessage || 'There has been an issue processing your request. Please check the browser console.')
   }

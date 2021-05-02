@@ -26,6 +26,7 @@ export default function DisplayInstitutions() {
       <div>
         <ul className="collection with-header">
           <li className="collection-header"><h4>Applied to institutions</h4></li>
+            { unverifiedInstitutions.length<1 && <li className="collection-item">No institutions with pending verification</li> }
             {unverifiedInstitutions.map(institution => (
               <li className="collection-item" key={institution.institutionID}>{institution.name}</li>
             ))}
@@ -35,10 +36,12 @@ export default function DisplayInstitutions() {
         <h2>Verified by Institutions</h2>
         <ul className="collection with-header">
           <li className="collection-header"><h4>Accepted by institutions</h4></li>
-            
+            { verifiedInstitutions.length<1 && 
+              <li className="collection-item">Apply to a institution or ask institution to verify you</li> 
+            }
             {verifiedInstitutions.map(institution => (
               <li className="collection-item" key={institution.institutionID}>
-                {institution.name} has {institution.vc_url===''?'has not assigned VC yet':"assigned you a crededntial already"}
+                {institution.name} has {institution.claims.length>0?"assigned you a crededntial!":"has not assigned VC yet"}
               </li>
             ))}
         </ul>

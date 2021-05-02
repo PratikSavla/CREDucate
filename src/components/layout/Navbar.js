@@ -10,13 +10,15 @@ const Navbar = () => {
 
   const [ appState ] = useContext(AppContext);
   const [notificationNumber, setNotificationNumber] = useState(0);
+  const [mobileNavbar, setMobileNavbar] = useState(false);
 
   return (
     <div>
     <nav className="nav-wrapper indigo">
       <div className="container">
         <a href="/" className="brand-logo">CREDucate</a>
-      <ul className="right">
+        <span className="sidenav-trigger hide-on-large-only" onClick={() => {setMobileNavbar(!mobileNavbar)}}><i className="material-icons">menu</i></span>
+      <ul className="right hide-on-med-and-down">
         <li><Link to="/">Home</Link></li>
         {appState.isAuthenticated && (
           <>
@@ -40,6 +42,27 @@ const Navbar = () => {
       </ul>
       </div>
     </nav>
+    <ul className={`collection ${mobileNavbar?"hide-on-large-only":"hide"}`}>
+        <li className="collection-item"><Link to="/">Home</Link></li>
+        {appState.isAuthenticated && (
+          <>
+            { !appState.isInstitution && <>
+            { !appState.isVerifier && <li  className="collection-item"><Link to={routes.INSTITUTE}>Institutes</Link></li> }
+            <li className="collection-item"><a href="#messages" className="btn-floating indigo darken-4 z-depth-0 modal-trigger">
+              <i className="material-icons">notifications</i>
+              </a><span className="badge white-text pink new">{notificationNumber}</span></li>
+            </>}
+            <li className="collection-item">< UserLogout /></li>
+          </>
+        )}
+        {!appState.isAuthenticated && (
+          <>
+            <li className="collection-item"><Link to={routes.STUDENT}>Student</Link></li>
+            <li className="collection-item"><Link to={routes.INSTITUTE}>Institution</Link></li>
+            <li className="collection-item"><Link to={routes.VERIFIER}>Verifier</Link></li>
+          </>
+        )}
+      </ul>
     <div className="modal black-text" id="messages">
       <div className="modal-content">
       {  appState.isAuthenticated &&  !appState.isInstitution && <>

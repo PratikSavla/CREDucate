@@ -100,7 +100,6 @@ class SdkService {
   async createCredentialShareRequestToken() {
     var today = new Date()
     const date = new Date(today.setFullYear(today.getFullYear() + 1));
-    console.log(date.toISOString())
     const credentialRequirements = [{ type: ['Credential', 'EducationCredentialPersonV1'] }]
     return this._networkMember.generateCredentialShareRequestToken(credentialRequirements, null ,{'expiresAt':date.toISOString()})
   }

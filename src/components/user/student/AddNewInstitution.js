@@ -27,7 +27,8 @@ export default function AddNewInstitution() {
       return
     }
     const data = await ApiService.addStudentToInstitution({institutionID:selected, studentID:appState._id})
-    console.log(data)
+    console.log(data);
+    setInstitutions(institutions.filter(institution => institution._id!==selected));
     setDisableButton(false);
     // window.alert("Institution Added");
     history.push('/');

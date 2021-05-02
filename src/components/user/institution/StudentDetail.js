@@ -18,8 +18,8 @@ export default function StudentDetail() {
               if(isActive)setStudent(data);
             })
           ApiService.getClaims(res.claims)
-            .then(data => {
-              if(isActive)setClaims(data);
+            .then(dat => {
+              if(isActive)setClaims(dat);
             })
           })
       } catch (error) {
