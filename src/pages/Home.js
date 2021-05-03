@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import students_img from '../assets/img/students.jpg'
 import schools_and_colleges_img from '../assets/img/schools and colleges.webp'
 import companies_img from '../assets/img/companies.jpg'
-import locker_room_img from '../assets/img/locker-room.jpg'
 import cred_flow_img from '../assets/img/cred-flow.png'
 import M from 'materialize-css'
 

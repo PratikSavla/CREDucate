@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, lazy } from 'react'
 import { Helmet } from 'react-helmet-async';
-import DisplayStudents from '../../../components/user/institution/DisplayStudents'
 import { AppContext } from '../../../utils/context'
+
+const DisplayStudents = lazy(() => import('../../../components/user/institution/DisplayStudents'))
 
 export default function InstitutionHome() {
   const [appState] = useContext(AppContext);

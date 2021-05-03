@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../../utils/context'
 import SdkService from '../../../utils/sdkService';
 import { Helmet } from 'react-helmet-async';
-
 export default function VerifierHome() {
   
   const [appState] = useContext(AppContext);
