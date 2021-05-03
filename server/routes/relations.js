@@ -9,12 +9,14 @@ import { addVCToStudent,
   getVerifiedInstitutions,
   getUnverifiedInstitutions,
   getInstitution,
-  deleteClaim
+  deleteClaim,
+  deleteRelation
 } from '../controllers/relations.js';
 
 const router = express.Router();
 
 router.put('/VC/:id', addVCToStudent);
+router.delete('/:id', deleteRelation);
 router.put('/deleteClaim/:id', deleteClaim);
 router.post('/add/:id', addStudentToInstitution);
 router.put('/verify/:id', verifyStudent);

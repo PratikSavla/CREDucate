@@ -20,15 +20,9 @@ export default function VerifierHome() {
         <title>Verifier - Home</title>
       </Helmet>
       <h2>{appState.name}</h2>
-<<<<<<< HEAD
-      <a href={requestTokenURL}>Sharing URL</a>
-      <p><strong>Address:</strong> {appState.address}</p>
-      <p><strong>Contact:</strong> {appState.contact}</p>
-=======
       <p><strong>Address:</strong> {appState.address}</p>
       <p><strong>Contact:</strong> {appState.contact}</p>
       <a href={requestTokenURL} style = {{fontSize : 20}}>Sharing URL</a>
->>>>>>> origin/master
     </div>
   )
 }

@@ -1,14 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-<<<<<<< HEAD
-const Home = () => {
-  return (
-    <div className="container">
-      <Helmet>
-        <title>CREDucate</title>
-      </Helmet>
-      <h2>Home</h2>
-
-=======
 import students_img from '../assets/img/students.jpg'
 import schools_and_colleges_img from '../assets/img/schools and colleges.webp'
 import companies_img from '../assets/img/companies.jpg'
@@ -60,7 +50,6 @@ const Home = () => {
   </div>
   <img src={cred_flow_img} alt = '' className ="responsive-img materialboxed"/>
   <div className = 'blue-grey darken-3' style = {{height : 120}}></div>
->>>>>>> origin/master
     </div> 
   );
 }

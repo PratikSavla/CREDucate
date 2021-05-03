@@ -5,16 +5,9 @@ import { apiInstances } from './utils/api';
 import jwt_decode from 'jwt-decode';
 import Router from './components/Router';
 import { AppContext,defaultAppState } from './utils/context';
-<<<<<<< HEAD
-
-
-function App() {
-
-=======
 import M from 'materialize-css'
 
 function App() {
->>>>>>> origin/master
   const [appState, setAppState] = useContext(AppContext)
 
   useEffect(() => {
@@ -32,11 +25,7 @@ function App() {
 
         ApiService.removeAccessAndDidTokens()
 
-<<<<<<< HEAD
-        alert('Your JWT token has expired. Please, log in again.')
-=======
         M.toast({html : 'Your JWT token has expired. Please, log in again.', displayLength : 1000})
->>>>>>> origin/master
 
         setAppState(prevState => {
           return {
@@ -82,11 +71,7 @@ function App() {
             ...defaultAppState
           })
 
-<<<<<<< HEAD
-          alert('Your JWT token has expired. Please, log in again.')
-=======
           M.toast({html : 'Your JWT token has expired. Please, log in again.', displayLength : 1000})
->>>>>>> origin/master
           return Promise.reject(error);
         } else {
           return Promise.reject(error);

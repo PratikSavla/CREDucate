@@ -63,7 +63,7 @@ export default function DisplayMessages({setNotificationNumber}) {
               <td>{message.credentialSubject.data.hasCredential.educationalLevel}</td>
               <td>{message.credentialSubject.data.hasCredential.url}</td>
               <td>{message.credentialSubject.data.hasCredential.dateCreated}</td>
-              <td><button className="btn waves-effect waves-light indigo" disabled={disableButton} onClick={() => {handleSaveVC(data.id, message)}}>Save</button></td>
+              <td><button className="btn waves-effect waves-light blue darken-4" disabled={disableButton} onClick={() => {handleSaveVC(data.id, message)}}>Save</button></td>
             </tr>
           )})}
         </tbody>

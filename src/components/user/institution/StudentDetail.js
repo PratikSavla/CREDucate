@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {useHistory, useParams} from 'react-router-dom';
 import ApiService from '../../../utils/apiService';
 import { Helmet } from 'react-helmet-async';
-<<<<<<< HEAD
-=======
 import M from 'materialize-css'
->>>>>>> origin/master
 
 export default function StudentDetail() {
   const { id } = useParams();
@@ -36,11 +33,7 @@ export default function StudentDetail() {
   const handleShare = async (credentialID) => {
     const {sharingUrl} = await ApiService.shareStoredVC(credentialID);
     navigator.clipboard.writeText(sharingUrl);
-<<<<<<< HEAD
-    window.alert("Credential Share URL Copid To Clipoard")
-=======
     M.toast({html : 'Credential Share URL Copid To Clipoard', displayLength : 1000})
->>>>>>> origin/master
   }
   const handleDelete = async (credentialID) => {
     const remainingClaims = claims.map(claim => claim.id).filter(claim => claim !== credentialID);
@@ -79,11 +72,7 @@ export default function StudentDetail() {
               <td>{claim.credentialSubject.data.hasCredential.url}</td>
               <td>{claim.credentialSubject.data.hasCredential.dateCreated}</td>
               <td>
-<<<<<<< HEAD
-                <button className="btn waves-effect waves-light indigo" onClick={() => handleShare(claim.id)}>Share</button>
-=======
                 <button className="btn waves-effect waves-light blue accent-4" onClick={() => handleShare(claim.id)}>Share</button>
->>>>>>> origin/master
                 <button className="btn waves-effect waves-light red" onClick={() => handleDelete(claim.id)}>Delete</button>
                 </td>
             </tr>

@@ -52,7 +52,7 @@ export default function DisplayResponses({setNotificationNumber}) {
               <td>{data.fromDid}</td>
               <td>{data.createdAt}</td>
               <td>
-                <button className="btn waves-effect waves-light indigo modal-close" onClick={() => history.push(`verify/${data.message}`)}>Verify</button>
+                <button className="btn waves-effect waves-light blue darken-4 modal-close" onClick={() => history.push(`verify/${data.message}`)}>Verify</button>
                 <button className="btn waves-effect waves-light red" disabled={disableButton} onClick={() => handleDeleteResponse(data.id)}>Delete Response</button>
               </td>
             </tr>

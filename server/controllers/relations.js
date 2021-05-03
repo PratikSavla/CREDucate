@@ -135,3 +135,12 @@ export const deleteClaim = async (req, res) => {
     res.status(404).json({message: error.message});
   }
 }
+
+export const deleteRelation = async (req, res) => {
+  try {
+    await RelationModel.findByIdAndDelete(req.params.id)
+    res.status(203).json({message: "Relation Succesfully Removed"});
+  } catch (error) {
+    res.status(404).json({message: error.message});
+  }
+}

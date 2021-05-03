@@ -6,10 +6,6 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -20,10 +16,6 @@ ReactDOM.render(
       </HelmetProvider>
     </BrowserRouter>
   </React.StrictMode>,
-<<<<<<< HEAD
-  document.getElementById('root')
-=======
   document.getElementById('root'),
  
->>>>>>> origin/master
 );

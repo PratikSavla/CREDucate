@@ -25,40 +25,22 @@ export default function DisplayInstitutions() {
     <div>
       <div>
         <ul className="collection with-header">
-<<<<<<< HEAD
-          <li className="collection-header"><h4>Applied to institutions</h4></li>
-            { unverifiedInstitutions.length<1 && <li className="collection-item">No institutions with pending verification</li> }
+          <li className="collection-header" style={{backgroundColor: "#004e86", color: "white"}}><h4>Applied to institutions</h4></li>
+            { unverifiedInstitutions.length<1 && <li className="collection-item" style={{backgroundColor: "#d6eeff"}}>No institutions with pending verification</li> }
             {unverifiedInstitutions.map(institution => (
-              <li className="collection-item" key={institution.institutionID}>{institution.name}</li>
-=======
-          <li className="collection-header" style = {{backgroundColor : '#0076c9', color : 'white'}}><h4>Applied to institutions</h4></li>
-            { unverifiedInstitutions.length<1 && <li className="collection-item">No institutions with pending verification</li> }
-            {unverifiedInstitutions.map(institution => (
-              <li className="collection-item" style = {{backgroundColor : '#dcf1ff'}} key={institution.institutionID}>{institution.name}</li>
->>>>>>> origin/master
+              <li className="collection-item" style={{backgroundColor: "#d6eeff"}} key={institution.institutionID}>{institution.name}</li>
             ))}
         </ul>
       </div>
       <div>
-<<<<<<< HEAD
-        <h2>Verified by Institutions</h2>
         <ul className="collection with-header">
-          <li className="collection-header"><h4>Accepted by institutions</h4></li>
+          <li className="collection-header" style={{backgroundColor: "#004e86", color: "white"}}><h4>Accepted by institutions</h4></li>
             { verifiedInstitutions.length<1 && 
-              <li className="collection-item">Apply to a institution or ask institution to verify you</li> 
+              <li className="collection-item" style={{backgroundColor: "#d6eeff"}}>Apply to a institution or ask institution to verify you</li> 
             }
             {verifiedInstitutions.map(institution => (
-              <li className="collection-item" key={institution.institutionID}>
-=======
-        <ul className="collection with-header">
-          <li className="collection-header" style = {{backgroundColor : '#0076c9', color : 'white'}}><h4>Accepted by institutions</h4></li>
-            { verifiedInstitutions.length<1 && 
-              <li className="collection-item" style = {{backgroundColor : '#dcf1ff'}}>Apply to a institution or ask institution to verify you</li> 
-            }
-            {verifiedInstitutions.map(institution => (
-              <li className="collection-item" style = {{backgroundColor : '#dcf1ff'}} key={institution.institutionID}>
->>>>>>> origin/master
-                {institution.name} has {institution.claims.length>0?"assigned you a crededntial!":"has not assigned VC yet"}
+              <li className="collection-item"style={{backgroundColor: "#d6eeff"}} key={institution.institutionID}>
+                {institution.name} has {institution.claims.length>0?"assigned you a crededntial!":"has not assigned you a VC yet"}
               </li>
             ))}
         </ul>
