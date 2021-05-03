@@ -29,7 +29,10 @@ const Router = ({isUserAuthenticated, isInstitution, isVerifier}) => {
   // render public routes
   if( !isUserAuthenticated ) {
     return (
-      <Suspense fallback={<div>Page is Loading...</div>}>
+      <Suspense fallback={ <div className="progress" style={{color:"#003153"}}>
+        <div className="indeterminate"></div>
+      </div>
+    }>
         <Switch>
           <Route exact path={routes.ROOT} component={Home} />
           <Route exact path={routes.STUDENT_SIGNUP} component={StudentSignup} />
@@ -46,7 +49,10 @@ const Router = ({isUserAuthenticated, isInstitution, isVerifier}) => {
 
   if(isInstitution) {
     return (
-      <Suspense fallback={<div>Page is Loading...</div>}>
+      <Suspense fallback={ <div className="progress">
+        <div className="indeterminate"></div>
+      </div>
+    }>
         <Switch>
           <Route exact path={[routes.ROOT, routes.INSTITUTE]} component={InstitutionHome} />
           <Route path="/verify/:id" component={StudentVerification} />
@@ -60,7 +66,10 @@ const Router = ({isUserAuthenticated, isInstitution, isVerifier}) => {
 
   if(isVerifier) {
     return (
-      <Suspense fallback={<div>Page is Loading...</div>}>
+      <Suspense fallback={ <div className="progress">
+        <div className="indeterminate"></div>
+      </div>
+    }>
         <Switch>
           <Route exact path={[routes.ROOT, routes.VERIFIER]} component={VerifierHome} />
           <Route path="/verify/:id" component={Verify} />
@@ -71,8 +80,8 @@ const Router = ({isUserAuthenticated, isInstitution, isVerifier}) => {
   }
 
   return (
-    <Suspense fallback={ <div class="progress">
-        <div class="indeterminate"></div>
+    <Suspense fallback={ <div className="progress">
+        <div className="indeterminate"></div>
       </div>
     }>
       <Switch>
