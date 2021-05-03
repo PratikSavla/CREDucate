@@ -4,7 +4,11 @@ import { cloudWalletApi, issuerApi, verifierApi, messagerApi } from "./api";
 import axios from 'axios';
 import SdkService from "./sdkService";
 import { MessageService } from "./messageService";
+<<<<<<< HEAD
 
+=======
+import M from 'materialize-css'
+>>>>>>> origin/master
 const MONGODB_URL = process.env.REACT_APP_SERVER_URL
 
 export default class ApiService {
@@ -271,8 +275,13 @@ export default class ApiService {
    * */
    static alertWithBrowserConsole(alertMessage) {
     console.log(alertMessage)
+<<<<<<< HEAD
 
     alert(alertMessage || 'There has been an issue processing your request. Please check the browser console.')
+=======
+    M.toast({html : alertMessage || 'There has been an issue processing your request. Please check the browser console.', 
+    displayLength : 1000, classes : 'red'})
+>>>>>>> origin/master
   }
 
   // add student to the relation table

@@ -3,6 +3,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { AppContext } from '../utils/context';
 import SdkService from '../utils/sdkService';
+<<<<<<< HEAD
+=======
+import M from 'materialize-css'
+>>>>>>> origin/master
 
 export default function Verify() {
   const [appState] = useContext(AppContext);
@@ -31,7 +35,11 @@ export default function Verify() {
             issuanceDate: resp.suppliedCredentials[0].issuanceDate,
             certificateURL: resp.suppliedCredentials[0].credentialSubject.data.hasCredential.url,
             expirationDate: resp.suppliedCredentials[0].expirationDate
+<<<<<<< HEAD
           })).catch(err => window.alert(err.message));
+=======
+          })).catch(err => M.toast({html : err.message, displayLength : 1000, classes : 'red'}));
+>>>>>>> origin/master
       })
   }, [appState.accessToken])// eslint-disable-line react-hooks/exhaustive-deps
   return (

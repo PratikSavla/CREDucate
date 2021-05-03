@@ -1,6 +1,10 @@
 // import useFetch from "../utils/useFetch";
 import { Helmet } from 'react-helmet-async';
+<<<<<<< HEAD
 
+=======
+import M from 'materialize-css'
+>>>>>>> origin/master
 import { useState, useContext } from "react";
 import { useHistory } from "react-router";
 import { routes } from "../../../constants/routes";
@@ -9,9 +13,17 @@ import { AppContext } from "../../../utils/context";
 // import useFetch from "../utils/useFetch";
 import sign from 'jwt-encode';
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 
 const InstitutionSignup = () => {
 
+=======
+import Tooltip from '@material-ui/core/Tooltip';
+//import 'tippy.js/dist/tippy.css'
+
+const InstitutionSignup = () => {
+  
+>>>>>>> origin/master
   const [data, setData] = useState({
     username:'',password:'',confirmPassword:'',
     name:'',contact:'',address:''
@@ -28,7 +40,11 @@ const InstitutionSignup = () => {
 
     // notify user if "password" and "confirm password" fields don't match
     if (data.password !== data.confirmPassword) {
+<<<<<<< HEAD
       alert('Passwords don\'t match!')
+=======
+      M.toast({html : 'Passwords don\'t match!', displayLength : 1000})
+>>>>>>> origin/master
       return
     }
 
@@ -59,7 +75,11 @@ const InstitutionSignup = () => {
         history.push(routes.ROOT);
       }
       else {
+<<<<<<< HEAD
         alert('Please provide a valid username (phone numbers and emails addresses are not allowed).')
+=======
+        M.toast({html : 'Please provide a valid username (phone numbers and emails addresses are not allowed).', displayLength : 1000})
+>>>>>>> origin/master
       }
     } catch (error) {
       ApiService.alertWithBrowserConsole(error.message)
@@ -72,10 +92,15 @@ const InstitutionSignup = () => {
   }
 
   return (
+<<<<<<< HEAD
+=======
+    
+>>>>>>> origin/master
     <div className="center">
       <Helmet>
         <title>Institution - Signup</title>
       </Helmet>
+<<<<<<< HEAD
       <h2>Institution Signup</h2>
       <form onSubmit={onSubmit} className="row">
       <div className="input-field col s12 l4 offset-l4">
@@ -83,22 +108,56 @@ const InstitutionSignup = () => {
         <input type="text" value={data.username} onChange={e => {setData({...data, username:e.target.value})}} />
         </div>
         <div className="input-field col s12 l4 offset-l4">
+=======
+      <h2>Institution Sign Up</h2>
+      <form onSubmit={onSubmit} className="row">
+      <div className="input-field col s12 l4 offset-l4">
+        <i className="material-icons prefix">person</i>
+        <label>Username</label>
+        <input type="text" value={data.username} onChange={e => {setData({...data, username:e.target.value})}} />
+        <Tooltip title = {<span className = 'tooltip-text'>Username must not contain spaces, _ and @</span>} >
+            <i className='material-icons prefix'>info_outline</i>
+        </Tooltip>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <i className="material-icons prefix">person</i>
+>>>>>>> origin/master
         <label>Name</label>
         <input type="text" value={data.name} onChange={e => {setData({...data, name:e.target.value})}} />
         </div>
         <div className="input-field col s12 l4 offset-l4">
+<<<<<<< HEAD
+=======
+        <i className="material-icons prefix">location_on</i>
+>>>>>>> origin/master
         <label>Address</label>
         <input type="text" value={data.address} onChange={e => {setData({...data, address:e.target.value})}} />
         </div>
         <div className="input-field col s12 l4 offset-l4">
+<<<<<<< HEAD
+=======
+        <i className="material-icons prefix">local_phone</i>
+>>>>>>> origin/master
         <label>Contact</label>
         <input type="text" value={data.contact} onChange={e => {setData({...data, contact:e.target.value})}} />
         </div>
         <div className="input-field col s12 l4 offset-l4">
+<<<<<<< HEAD
         <label>Password</label>
         <input type="password" value={data.password} onChange={e => {setData({...data, password:e.target.value})}} />
         </div>
         <div className="input-field col s12 l4 offset-l4">
+=======
+        <i className="material-icons prefix">lock</i>
+        <label>Password</label>
+        <input type="password" value={data.password} onChange={e => {setData({...data, password:e.target.value})}} />
+        <Tooltip title = {<span className = 'tooltip-text'>Password must contain atleast 6 characters, atleast 1 alphabet and atleast 1 number</span>} >
+            <i className='material-icons prefix'>info_outline</i>
+        </Tooltip>
+        </div>
+        <div className="input-field col s12 l4 offset-l4">
+        <i className="material-icons prefix">lock</i>
+>>>>>>> origin/master
         <label>Confirm Password</label>
         <input type="password" value={data.confirmPassword} onChange={e => {setData({...data, confirmPassword:e.target.value})}} />
         </div>

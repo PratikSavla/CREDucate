@@ -4,6 +4,10 @@ import ApiService from '../../../utils/apiService';
 import { AppContext } from '../../../utils/context';
 import { MessageService } from '../../../utils/messageService';
 import SdkService from '../../../utils/sdkService';
+<<<<<<< HEAD
+=======
+import M from 'materialize-css'
+>>>>>>> origin/master
 
 export default function DisplayCredentials({requestToken}) {
   const [appState] = useContext(AppContext);
@@ -39,13 +43,21 @@ export default function DisplayCredentials({requestToken}) {
   const handleShare = async (credentialID) => {
     const {sharingUrl} = await ApiService.shareStoredVC(credentialID);
     navigator.clipboard.writeText(sharingUrl);
+<<<<<<< HEAD
     window.alert("Credential Share URL Copid To Clipoard")
+=======
+    M.toast({html : "Credential Share URL Copid To Clipoard", displayLength : 1000})
+>>>>>>> origin/master
   }
   return (
     <div>
       <h2>All Credentials</h2>
       <table className="highlight responsive-table centered">
+<<<<<<< HEAD
         <thead>
+=======
+        <thead >
+>>>>>>> origin/master
         <tr>
             <th>Institution Name</th>
             <th>Category</th>
@@ -64,8 +76,13 @@ export default function DisplayCredentials({requestToken}) {
               <td>{credential.credentialSubject.data.hasCredential.url}</td>
               <td>{credential.credentialSubject.data.hasCredential.dateCreated}</td>
               <td>
+<<<<<<< HEAD
                 { requestToken &&<button className="btn waves-effect waves-light indigo" disabled={disableButton} onClick={() => handleShareResponse(credential)}>Share</button>}
                 { !requestToken &&<button className="btn waves-effect waves-light indigo" onClick={() => handleShare(credential.id)}>Share</button>}
+=======
+                { requestToken &&<button className="btn waves-effect waves-light  blue accent-4" disabled={disableButton} onClick={() => handleShareResponse(credential)}>Share</button>}
+                { !requestToken &&<button className="btn waves-effect waves-light  blue accent-4" onClick={() => handleShare(credential.id)}>Share</button>}
+>>>>>>> origin/master
               </td>
             </tr>
           ))}

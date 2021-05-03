@@ -6,6 +6,10 @@
     "@affinidi/affinidi-did-auth-lib": "^1.0.3",
     "@affinidi/wallet-browser-sdk": "^4.2.3",
     "@affinidi/wallet-core-sdk": "^4.2.3",
+<<<<<<< HEAD
+=======
+    "@material-ui/core": "^4.11.4",
+>>>>>>> origin/master
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -13,12 +17,20 @@
     "dotenv": "^8.2.0",
     "jwt-decode": "^3.1.2",
     "jwt-encode": "^1.0.1",
+<<<<<<< HEAD
+=======
+    "materialize-css": "^1.0.0-rc.2",
+>>>>>>> origin/master
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.0.9",
     "react-modal": "^3.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+<<<<<<< HEAD
+=======
+    "react-tooltip": "^4.2.18",
+>>>>>>> origin/master
     "web-vitals": "^1.1.1"
   },
   "scripts": {

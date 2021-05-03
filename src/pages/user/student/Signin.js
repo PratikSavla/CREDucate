@@ -61,20 +61,36 @@ const StudentSignin = (props) => {
       <Helmet>
         <title>Student - Login</title>
       </Helmet>
+<<<<<<< HEAD
       <h2>Student Signin</h2>
       <form onSubmit={onSubmit}>
         <div className="row">
           <div className="input-field col s12 l4 offset-l4">
+=======
+      <h2>Student Sign In</h2>
+      <form onSubmit={onSubmit}>
+        <div className="row">
+          <div className="input-field col s12 l4 offset-l4">
+          <i class="material-icons prefix">person</i>
+>>>>>>> origin/master
           <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
           <label>Username</label>
           </div>
           <div className="input-field col s12 l4 offset-l4">
+<<<<<<< HEAD
+=======
+          <i class="material-icons prefix">lock</i>
+>>>>>>> origin/master
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
           <label>Password</label>
           </div>
         </div>
         <div className="col s12 l4 offset-l4">
+<<<<<<< HEAD
         <button className="btn waves-effect waves-light indigo" type="submit" disabled={!validateForm()}>Login</button>
+=======
+        <button className="btn waves-effect waves-light  blue accent-4" type="submit" disabled={!validateForm()}>Login</button>
+>>>>>>> origin/master
         <p>Don't have a student account? <Link to={routes.STUDENT_SIGNUP} className="indigo-text">Click here</Link></p>
         </div>
       </form>
