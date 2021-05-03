@@ -42,13 +42,10 @@ const Home = () => {
       </div>
     </div>
   </section>
- 
-  <div className="parallax-container">
-    <div className="parallax">
-    <img src={locker_room_img} alt = '' className ="responsive-img materialboxed"/>
-    </div>
-  </div>
-  <img src={cred_flow_img} alt = '' className ="responsive-img materialboxed"/>
+<section className="container center-align">
+<img src={cred_flow_img} alt = '' className ="responsive-img materialboxed "/>
+
+</section>
   <div className = 'blue-grey darken-3' style = {{height : 120}}></div>
     </div> 
   );
