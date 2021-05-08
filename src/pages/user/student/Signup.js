@@ -94,6 +94,7 @@ const StudentSignup = () => {
         <input type="text" value={data.name} onChange={e => {setData({...data, name:e.target.value})}} />
         </div>
         <div className="input-field col s12 l4 offset-l4">
+        <i className="material-icons prefix">location_on</i>
         <label>Address</label>
         <input type="text" value={data.address} onChange={e => {setData({...data, address:e.target.value})}} />
         </div>
