@@ -63,16 +63,16 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![CREDucate][product-screenshot]](https://creducate.netlify.app/)
+[CREDucate](https://creducate.netlify.app/)
 
 Creducate is the platform where institutions can issue educational credentials to students who have registered under them and verifiers(other institutions) can request and verify those credentials.
 
 
 ### Built With
 
-* [https://nodejs.org/en/](Node.js v14.6.1)
-* [https://www.affinidi.com/](Affinidi-API)
-* [https://reactjs.org/](React.js)
+* [Node.js v14.6.1](https://nodejs.org/en)
+* [Affinidi-API](https://www.affinidi.com)
+* [React.js](https://reactjs.org)
 
 
 
@@ -145,7 +145,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle]https://www.twitter.com/pratiksavla_) - email
+Pratik Savla - [@pratiksavla_](https://www.twitter.com/pratiksavla_) - pratiksavla@gmail.com
 
 Project Link: [https://github.com/PratikSavla/CREDucate](https://github.com/PratikSavla/CREDucate)
 
